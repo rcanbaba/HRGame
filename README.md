@@ -1,8 +1,7 @@
 # GradProject
 Graduation project. Adaptive HR Game
 
-
-
+GENEL NOTLAR
 
 Karakter
 1. Sabit dururken kendi kendine harekete edecek.
@@ -43,3 +42,21 @@ Müzik
 1. Çarpışmalara müzik ekle 
 2. Arkaplan müziği ekle
 3. Renk sorularında müzik değiş dursun vs.
+
+
+ÖNEMLİ LİNKLER
+
+1. Örnek Kaynaklar
+    a. Benzer oyun yağmur düşüyor vs.
+        https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/
+    b. Pachinko, güzel tutorial
+        https://www.hackingwithswift.com/read/11/overview
+    c. Güzel tutorial
+        http://spritekitlessons.com/swift-3-and-sprite-kit-tutorial-part-1-the-sprite-kit-starting-template/#
+    d. İncelenmeli
+        https://subscription.packtpub.com/book/game_development/9781784393557/4
+
+2. Game Over - Main Menu Scene ekleme: 
+    a. https://subscription.packtpub.com/book/game_development/9781784393557/4
+    b. https://stackoverflow.com/questions/33321071/swift-spritekit-how-to-restart-gamescene-after-game-over-stop-lagging
+
