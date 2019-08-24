@@ -2,12 +2,36 @@
 
 Graduation project. Adaptive HR Game
 
+______________________________________________________________________________________________________________________________
+
+## YAPILACAKLAR
+
+- [ ] Düzgün arkaplan bul, koy.
+
+- [ ] Karaktere düzgün asset bul.
+- [ ] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
+- [ ] Karakter sağa sola çektiğin zaman gidecek. 
+
+- [ ] Topların asset lerini ayarla.
+- [ ] Toplar otomatik olarak bi senaryoya göre düşsün.
+
+- [ ] Çarpışmaları top rengine göre tespit et.
+
+- [ ] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
+
+- [ ] Çarpışma olduğu zaman top renk testi ekranı çıksın. Edit ekranı gibi yapılabilir. (pachinko tutorial ine bak) 
+ 
+- [ ] Game Over scene ayarla , oyun bittiğinde sahne değişsin.
+- [ ] Main menu, start scene bir giriş sahnesi vs ayarla.
+
+______________________________________________________________________________________________________________________________
+
 ## GENEL NOTLAR
 
 #### Karakter
 
 - [ ] 1.  Sabit dururken kendi kendine hareket edecek.
-- [ ] 2.  Karakter sağa yada sola sürüklenebilecek. Dokunduğumuz yere gidecek. ( İlk oyundan bakarak çöz raywanderlich)
+- [ ] 2.  Karakter sağa yada sola sürüklenebilecek. Dokunduğumuz yere gidecek. (İlk oyundan bakarak çöz)
 - [ ] 3.  Karakter sürüklendiği yöne göre yön değiştirmeli “asset”
 
 #### Etaplar
