@@ -7,7 +7,7 @@ ________________________________________________________________________________
 ## YAPILACAKLAR
 
 
-- [ x ] Karakter sağa sola çektiğin zaman gidecek. 
+- [x] Karakter sağa sola çektiğin zaman gidecek. 
 - [ ] Karakter ekranın dışına çıkmasın.
 - [ ] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun.
 - [ ] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
