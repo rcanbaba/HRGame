@@ -6,11 +6,14 @@ ________________________________________________________________________________
 
 ## YAPILACAKLAR
 
-- [ ] Düzgün arkaplan bul, koy.
 
-- [ ] Karaktere düzgün asset bul.
+- [ x ] Karakter sağa sola çektiğin zaman gidecek. 
+- [ ] Karakter ekranın dışına çıkmasın.
+- [ ] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun.
 - [ ] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
-- [ ] Karakter sağa sola çektiğin zaman gidecek. 
+- [ ] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin.
+
+- [ ] Düzgün arkaplan bul, koy.
 
 - [ ] Topların asset lerini ayarla.
 - [ ] Toplar otomatik olarak bi senaryoya göre düşsün.
