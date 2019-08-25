@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var character = SKSpriteNode()
+    var character:SKSpriteNode = SKSpriteNode()
     var characterPosition = CGPoint()
     var startTouch = CGPoint()
     var scoreLabel: SKLabelNode!
@@ -29,10 +29,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        let background = SKSpriteNode(imageNamed: "background")
-        background.size.height = 1500
-        background.position = CGPoint(x: 0, y: 0)
-        background.blendMode = .replace
+//        let background = SKSpriteNode(imageNamed: "background")
+//        background.size.height = 1500
+//        background.position = CGPoint(x: 0, y: 0)
+//        background.blendMode = .replace
+//        background.zPosition = -3
+//        addChild(background)
+        
+        let background = SKSpriteNode(imageNamed: "background2")
+        background.size.width = self.frame.size.width * 1.7
+        background.size.height = self.frame.size.height * 1.7
+        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 190)
         background.zPosition = -3
         addChild(background)
         
@@ -42,7 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dollar.size.width = dollar.size.width / 2.0
         dollar.position = CGPoint(x: -180, y: 600)
         //background.blendMode = .replace
-        dollar.zPosition = -2
+        dollar.zPosition = 1
         addChild(dollar)
         
         let star = SKSpriteNode(imageNamed: "star")
@@ -50,31 +57,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         star.size.width = star.size.width / 2.0
         star.position = CGPoint(x: 180, y:600 )
         //background.blendMode = .replace
-        star.zPosition = -1
+        star.zPosition = 1
         addChild(star)
         
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
         scoreLabel.text = "Score: 0"
         scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.position = CGPoint(x: 140, y: 590)
+        scoreLabel.position = CGPoint(x: 135, y: 590)
+        scoreLabel.zPosition = 2
         addChild(scoreLabel)
         
         stageLabel = SKLabelNode(fontNamed: "Chalkduster")
         stageLabel.text = "Stage: 0"
         stageLabel.horizontalAlignmentMode = .left
-        stageLabel.position = CGPoint(x: -250, y: 590)
+        stageLabel.position = CGPoint(x: -255, y: 590)
+        stageLabel.zPosition = 2
         addChild(stageLabel)
         
         
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
 
+        
+        if let somePlayer:SKSpriteNode = self.childNode(withName: "player") as? SKSpriteNode{
+            character = somePlayer
+            print("that worked")
+        }else{
+            print("that failed")
+        }
         character.name = "character"
-        character = SKSpriteNode(color: .red, size: CGSize(width: 100, height: 100))
-        character.position = CGPoint (x: 0, y: -640)
-        character.physicsBody = SKPhysicsBody( rectangleOf: character.size)
+        //character.physicsBody = SKPhysicsBody( rectangleOf: character.size)
         character.physicsBody?.isDynamic = false
-        self.addChild(character)
+        //self.addChild(character)
         nextRow(row: stageCount+1)
     }
     
@@ -88,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
-            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -640), duration: 0.1))
+            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -545), duration: 0.1))
         }
     }
     
@@ -169,7 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addBall(at: CGPoint (x:    0, y: 640), name: "ballPurple", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:  250, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
         }else if(row == 7){
-            physicsWorld.gravity = CGVector(dx: 0, dy: -15.8)
+            physicsWorld.gravity = CGVector(dx: 0, dy: -19.8)
             addBall(at: CGPoint (x: -200, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:  200, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
         }else if(row == 8){
@@ -252,7 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addBall(at: CGPoint (x: -200, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:  200, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
         }else if(row == 23){
-            physicsWorld.gravity = CGVector(dx: 0, dy: -15.8)
+            physicsWorld.gravity = CGVector(dx: 0, dy: -5.8)
             addBall(at: CGPoint (x: -270, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:  -90, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:   90, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
