@@ -13,14 +13,15 @@ ________________________________________________________________________________
 - [ ] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
 - [ ] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin.
 
-- [ ] Düzgün arkaplan bul, koy.
+- [x] Arkaplan ayarla.
+- [x] Score vs alanı yukarıya ayarla.
 
-- [ ] Topların asset lerini ayarla.
-- [ ] Toplar otomatik olarak bi senaryoya göre düşsün.
+- [x] Topların asset lerini ayarla.
+- [x] Toplar otomatik olarak bi senaryoya göre düşsün.
 
-- [ ] Çarpışmaları top rengine göre tespit et.
+- [x] Çarpışmaları top rengine göre tespit et.
 
-- [ ] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
+- [x] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
 
 - [ ] Çarpışma olduğu zaman top renk testi ekranı çıksın. Edit ekranı gibi yapılabilir. (pachinko tutorial ine bak) 
  
