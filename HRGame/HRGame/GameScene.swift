@@ -38,8 +38,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let background = SKSpriteNode(imageNamed: "background2")
         background.size.width = self.frame.size.width * 1.7
-        background.size.height = self.frame.size.height * 1.7
-        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 190)
+        background.size.height = self.frame.size.height * 1.5
+        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
         background.zPosition = -3
         addChild(background)
         
@@ -74,10 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stageLabel.zPosition = 2
         addChild(stageLabel)
         
-        
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
-
         
         if let somePlayer:SKSpriteNode = self.childNode(withName: "player") as? SKSpriteNode{
             character = somePlayer
@@ -102,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
-            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -545), duration: 0.1))
+            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -400), duration: 0.1))
         }
     }
     
@@ -161,9 +159,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addBall(at: CGPoint (x:  200, y: 640), name: "ballPurple", size: CGSize(width: 90, height: 90))
         }else if(row == 3){
             physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
-            addBall(at: CGPoint (x: -250, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
-            addBall(at: CGPoint (x:    0, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
-            addBall(at: CGPoint (x:  250, y: 640), name: "ballCyan", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x: -200, y: 640), name: "bouncer", size: CGSize(width: 150, height: 150))
+            addBall(at: CGPoint (x:  200, y: 640), name: "spark", size: CGSize(width: 200, height: 200))
         }else if(row == 4){
             physicsWorld.gravity = CGVector(dx: 0, dy: -7.8)
             addBall(at: CGPoint (x: -270, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
@@ -267,11 +264,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addBall(at: CGPoint (x:  200, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
         }else if(row == 23){
             physicsWorld.gravity = CGVector(dx: 0, dy: -5.8)
+            physicsWorld.gravity = CGVector(dx: 0, dy: -19.8)
+            addBall(at: CGPoint (x: -200, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:  200, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
+        }else if(row == 24){
+            physicsWorld.gravity = CGVector(dx: 0, dy: -5.8)
+            physicsWorld.gravity = CGVector(dx: 0, dy: -7.8)
+            addBall(at: CGPoint (x: -250, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:    0, y: 640), name: "ballCyan", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:  250, y: 640), name: "ballBlue", size: CGSize(width: 90, height: 90))
+        }else if(row == 25){
+            physicsWorld.gravity = CGVector(dx: 0, dy: -5.8)
+            physicsWorld.gravity = CGVector(dx: 0, dy: -7.8)
+            addBall(at: CGPoint (x: -250, y: 640), name: "ballRed", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:    0, y: 640), name: "ballPurple", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:  250, y: 640), name: "ballYellow", size: CGSize(width: 90, height: 90))
+        }else if(row == 26){
+            physicsWorld.gravity = CGVector(dx: 0, dy: -19.8)
+            addBall(at: CGPoint (x: -200, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:  200, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
+        }else if(row == 27){
+            physicsWorld.gravity = CGVector(dx: 0, dy: -5.8)
+            addBall(at: CGPoint (x: -0, y: 640), name: "bouncer", size: CGSize(width: 110, height: 110))
+
+        }else if(row == 28){
+            physicsWorld.gravity = CGVector(dx: 0, dy: -7.8)
             addBall(at: CGPoint (x: -270, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
-            addBall(at: CGPoint (x:  -90, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
-            addBall(at: CGPoint (x:   90, y: 640), name: "ballGreen", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:  -90, y: 640), name: "ballYellow", size: CGSize(width: 90, height: 90))
+            addBall(at: CGPoint (x:   90, y: 640), name: "ballBlue", size: CGSize(width: 90, height: 90))
             addBall(at: CGPoint (x:  270, y: 640), name: "ballGrey", size: CGSize(width: 90, height: 90))
         }
+            
         else{
             
         }
@@ -279,6 +302,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func destroy(ball: SKNode) {
+//        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles") {
+//            fireParticles.position = ball.position
+//            addChild(fireParticles)
+//        }
         ball.removeFromParent()
     }
     

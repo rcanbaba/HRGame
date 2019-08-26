@@ -8,9 +8,9 @@ ________________________________________________________________________________
 
 
 - [x] Karakter sağa sola çektiğin zaman gidecek. 
+- [x] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
 - [ ] Karakter ekranın dışına çıkmasın.
 - [ ] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun.
-- [ ] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
 - [ ] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin.
 
 - [x] Arkaplan ayarla.
@@ -23,10 +23,11 @@ ________________________________________________________________________________
 
 - [x] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
 
-- [ ] Çarpışma olduğu zaman top renk testi ekranı çıksın. Edit ekranı gibi yapılabilir. (pachinko tutorial ine bak) 
- 
-- [ ] Game Over scene ayarla , oyun bittiğinde sahne değişsin.
-- [ ] Main menu, start scene bir giriş sahnesi vs ayarla.
+- [ ] Çarpışma olduğu zaman top renk testi ekranı çıksın. Alta çıksın.
+- [ ] Pause butonu koy.
+- [ ]  Start scene ayarla.
+- [ ] Game Over scene ayarla.
+- [ ] Main menu scene ayarla,
 
 ______________________________________________________________________________________________________________________________
 
