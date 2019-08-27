@@ -6,7 +6,6 @@ ________________________________________________________________________________
 
 ## YAPILACAKLAR
 
-
 - [x] Karakter sağa sola çektiğin zaman gidecek. 
 - [x] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
 - [ ] Karakter ekranın dışına çıkmasın.
@@ -23,11 +22,34 @@ ________________________________________________________________________________
 
 - [x] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
 
-- [ ] Çarpışma olduğu zaman top renk testi ekranı çıksın. Alta çıksın.
-- [ ] Pause butonu koy.
-- [ ]  Start scene ayarla.
+- [ ] Start scene ayarla.
 - [ ] Game Over scene ayarla.
 - [ ] Main menu scene ayarla,
+
+- [ ] Renk testi alanı ayarla alta.
+- [ ] Stageler arası sceneleri ayarla.
+
+- [ ] Tutorial koy başa.
+- [ ] Stage 1: renkli toplar
+- [ ] Stage 2: + renk soruları
+- [ ] Stage 3: + hız
+- [ ] Stage 4: herşeyi koy
+- [ ] Pause/ Play butonu koy.
+
+______________________________________________________________________________________________________________________________
+
+## AYŞE HOCA
+
+- Yukardan düşen topları rastgele yapabiliriz.
+- Düşen toplar arasından en iyi senaryoyu hesaplayıp ona göre biz değerlendirebilriz.
+- Stageler halinde olsun oyun gittikçe zorlaşsın.
+  - Stage 0: Tutorial
+  - Stage 1: Sadece renkli toplar düşecek, 
+  - Stage 2: Renkli toplar ve renk testi eklenecek
+  - Stage 3: Renkli toplar, renk testi ve hız eğişimi eklenecek.
+- Topların rengine göre kendi kodlamasın, bazen kırmızı bazen yeşil riskli top olsun. 
+- Riskli topun üzerinde bir işaret olsun.
+- Arkadaşınla görüş stageler nasıl olmalı konuş.
 
 ______________________________________________________________________________________________________________________________
 
