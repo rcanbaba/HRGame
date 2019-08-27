@@ -38,7 +38,7 @@ ________________________________________________________________________________
 
 ______________________________________________________________________________________________________________________________
 
-## AYŞE HOCA
+## AYŞE HOCA ile görüşmeden notlar:
 
 - Yukardan düşen topları rastgele yapabiliriz.
 - Düşen toplar arasından en iyi senaryoyu hesaplayıp ona göre biz değerlendirebilriz.
@@ -50,6 +50,11 @@ ________________________________________________________________________________
 - Topların rengine göre kendi kodlamasın, bazen kırmızı bazen yeşil riskli top olsun. 
 - Riskli topun üzerinde bir işaret olsun.
 - Arkadaşınla görüş stageler nasıl olmalı konuş.
+- Farklı toplar olsun bonus veren hızı yavaşlatan vs
+- Tek top düşmeli sıralar da olsun.
+- Renk soru testleri alta pencere açılacak orda olsun. "Stroop Effect"
+- Renk soru testi altta yazı rengi yada yazıda yazan kelime şeklinde olsun. 
+- Topu alana kadar soru yazacak topu alınca pencere açılacak soru seçilecek.
 
 ______________________________________________________________________________________________________________________________
 
