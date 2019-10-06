@@ -57,7 +57,18 @@ ________________________________________________________________________________
 - Topu alana kadar soru yazacak topu alınca pencere açılacak soru seçilecek.
 
 ______________________________________________________________________________________________________________________________
+Stroop Effect - Alttaki Renk Testi Kısmı:
 
+
+Butonların arkaplanları ile içinde yazan renkler farklı olacak:
+blue-cyan-green-grey-purple-red-yellow : 7 renk buton arka planları
+içindeki yazılar ise beyaz(arkaplan renginde) olacak
+
+kullanıcı seçtiği topun renginin yazısını yada rengi işaretleyecek !! 
+
+doğruysa + puan alacak.
+
+______________________________________________________________________________________________________________________________
 ## GENEL NOTLAR
 
 #### Karakter
