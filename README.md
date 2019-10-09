@@ -92,6 +92,10 @@ Her kombinasyonun hazır asseti olacak ve unique adı olacak ve bu duruma göre 
 Lane Generator: Risk katsayılarına göre yeni laneler oluşturacak. 
 Adaptive kısmı: ilk durumda eski tecrübelerine ve yaşına göre ilk stage i set edecek
 Daha sonra yapılan seçimlere göre Lane Generator e o katsayıyı gönderecek. 
+
+alternatifi -> ilk olarak yapılacak: bart a benzet 0 yada puan alıyorsun
+yukarda skala olsun o sıraya göre riskin arttığını bilsin. risk katsayıları artsın 0 alma olasılığı. 
+
 ______________________________________________________________________________________________________________________________
 ## GENEL NOTLAR
 
