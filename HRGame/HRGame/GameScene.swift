@@ -10,11 +10,17 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var balls = ["ballRed","ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballYellow"]
+    let userDefaults = UserDefaults.standard
+    var starfield:SKEmitterNode!
     var character:SKSpriteNode = SKSpriteNode()
     var characterPosition = CGPoint()
     var pad:SKSpriteNode = SKSpriteNode()
     var startTouch = CGPoint()
+    var gameTimer:Timer!
     var scoreLabel: SKLabelNode!
+    var stageKey = Int(0)
+    var lineCount = Int(0)
     var score = 0{
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -26,9 +32,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             stageLabel.text = "Stage: \(stageCount)"
         }
     }
+    var getPointLabel: SKLabelNode!
+    var getPoint = 0 {
+        didSet {
+            getPointLabel.text = " + \(getPoint)"
+        }
+    }
+
+    
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        stageKey = userDefaults.integer(forKey: "stageKey")
+        
+        
+//        starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
+//        starfield.advanceSimulationTime(10)
+//        self.addChild(starfield)
+//        starfield.zPosition = -1
+        
         
 //        let background = SKSpriteNode(imageNamed: "background")
 //        background.size.height = 1500
@@ -37,13 +59,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        background.zPosition = -3
 //        addChild(background)
         
-        let background = SKSpriteNode(imageNamed: "background2")
-        background.size.width = self.frame.size.width * 1.7
-        background.size.height = self.frame.size.height * 1.5
-        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
-        background.zPosition = -3
-        addChild(background)
-        
+//        let background = SKSpriteNode(imageNamed: "background2")
+//        background.size.width = self.frame.size.width * 1.7
+//        background.size.height = self.frame.size.height * 1.5
+//        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
+//        background.zPosition = -3
+//        addChild(background)
         
         let dollar = SKSpriteNode(imageNamed: "dollar")
         dollar.size.height = dollar.size.height / 2.0
@@ -75,6 +96,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stageLabel.zPosition = 2
         addChild(stageLabel)
         
+        getPointLabel = SKLabelNode(fontNamed: "Chalkduster")
+        getPointLabel.text = "Point"
+        getPointLabel.fontSize = 60
+        getPointLabel.horizontalAlignmentMode = .left
+        getPointLabel.position = CGPoint(x: -60, y: 480)
+        addChild(getPointLabel)
+        
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
         
@@ -94,8 +122,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("that worked")
         }
         
-        nextRow(row: stageCount+1)
+        if(stageKey == 1 ){
+            nextRow(row: stageCount+1)
+        }else if(stageKey == 2){
+            gameTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+        }
     }
+//  MARK: STAGE leri yukarda ayarla ---------------
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
@@ -110,7 +145,65 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -400), duration: 0.1))
         }
     }
+//
+    @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
+        
+        if (lineCount > 9) {
+            gameTimer!.invalidate()
+        }
+        
+        let ballCount = Int.random(in: 2 ... 5)
+        addLine(bCount: ballCount)
+        lineCount = lineCount + 1
+        
+    }
+//  MARK: Set Lines ******************
+    func addLine(bCount: Int){
+  // initX & deltaX setted for ball positions
+        var random: Int!
+        var initX: Int!
+        var deltaX: Int!
+        if(bCount == 2){
+            initX = -200
+            deltaX = 400
+        }else if(bCount == 3){
+            initX = -250
+            deltaX = 250
+        }else if(bCount == 4){
+            initX = -270
+            deltaX = 180
+        }else if(bCount == 5){
+            initX = -300
+            deltaX = 150
+        }else{
+            print("Error: inRandom line generator")
+        }
+        
+        for _ in 0..<bCount{
+            random =  Int.random(in: 0 ... 6)
+            addBallwithoutSize(at: CGPoint (x: initX, y: 640), name: balls[random])
+            initX = initX + deltaX
+        }
+        
+    }
+  
     
+//  MARK: Stage 2 içim yazıldı
+    func addBallwithoutSize (at position: CGPoint, name: String) {
+        let ball = SKSpriteNode(imageNamed: name)
+        ball.name = name
+        ball.size = CGSize(width: 90, height: 90)
+        ball.position = position
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
+        ball.physicsBody?.restitution = 0.4
+        ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
+        addChild(ball)
+    }
+    
+    
+    
+    
+//  MARK: Eski yöntemler -----------------
     func addBall (at position: CGPoint, name: String, size: CGSize) {
         let ball = SKSpriteNode(imageNamed: name)
         ball.name = name
@@ -121,41 +214,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
         addChild(ball)
     }
-    
-    func collisionBetween(character: SKNode, ball: SKNode) {
 
+    
+//  MARK: ************ AFTER COLLISION ***********
+    func collisionBetween(character: SKNode, ball: SKNode) {
         pad.zPosition = 2
         switch ball.name {
         case "ballRed":
+            getPoint = 10
             score = score + 10
             destroy(ball: ball)
         case "ballBlue":
+            getPoint = 25
             destroy(ball: ball)
             score = score + 25
         case "ballCyan":
+            getPoint = -5
             destroy(ball: ball)
             score = score + -5
         case "ballGreen":
+            getPoint = -1
             destroy(ball: ball)
             score = score + -1
         case "ballGrey":
+            getPoint = 1
             destroy(ball: ball)
             score = score + 1
         case "ballPurple":
+            getPoint = 3
             destroy(ball: ball)
             score = score + 3
         case "ballYellow":
+            getPoint = 20
             destroy(ball: ball)
             score = score + 20
         default:
             print("farklı bir şey çarptı!!!")
         }
         stageCount = stageCount + 1
-        nextRow(row: stageCount)
+        if(stageKey == 1){
+            nextRow(row: stageCount)
+        }
+        
     }
     
+//  MARK: Eski Yöntemler
     func nextRow(row: Int){
-        
         if (row == 1){
             physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
             addBall(at: CGPoint (x: -250, y: 640), name: "ballBlue", size: CGSize(width: 90, height: 90))
@@ -339,7 +443,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
+//  MARK: REMOVE GIVEN NODE
     func destroy(ball: SKNode) {
 //        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles") {
 //            fireParticles.position = ball.position
@@ -347,7 +451,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        }
         ball.removeFromParent()
     }
-    
+// MARK: COLLISION DETECTION
     func didBegin(_ contact: SKPhysicsContact) {
         character.name = "character"
         guard let nodeA = contact.bodyA.node else { return }
