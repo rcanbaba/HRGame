@@ -57,7 +57,46 @@ ________________________________________________________________________________
 - Topu alana kadar soru yazacak topu alınca pencere açılacak soru seçilecek.
 
 ______________________________________________________________________________________________________________________________
+Stroop Effect - Alttaki Renk Testi Kısmı:
 
+
+Butonların arkaplanları ile içinde yazan renkler farklı olacak:
+blue-cyan-green-grey-purple-red-yellow : 7 renk buton arka planları
+içindeki yazılar ise beyaz(arkaplan renginde) olacak
+
+kullanıcı seçtiği topun renginin yazısını yada rengi işaretleyecek !! 
+
+doğruysa + puan alacak.
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+Stageler:
+
+bouncer && spark = + bonus puanlar +10 +15 puan
+
+her topun kendi puanı var +1 +2 +3 0 -1 -2 -3
+
+içinde yazan X değerine göre ve X değeri aralığına göre puan verecek.
+Örnekler değerler:
+0x = puan değeri * 0        
+1x = puan değeri * 1    -1x = puan değeri * -1
+3x = puan değeri * 3    -3x = puan değeri * -3
+
+Örnek top içerikleri:
+0x .. 1x
+0x .. 3x
+-1x .. 1x
+-3x .. 3x
+
+Her kombinasyonun hazır asseti olacak ve unique adı olacak ve bu duruma göre unique risk katsayıları bulunacak
+
+Lane Generator: Risk katsayılarına göre yeni laneler oluşturacak. 
+Adaptive kısmı: ilk durumda eski tecrübelerine ve yaşına göre ilk stage i set edecek
+Daha sonra yapılan seçimlere göre Lane Generator e o katsayıyı gönderecek. 
+
+alternatifi -> ilk olarak yapılacak: bart a benzet 0 yada puan alıyorsun
+yukarda skala olsun o sıraya göre riskin arttığını bilsin. risk katsayıları artsın 0 alma olasılığı. 
+
+______________________________________________________________________________________________________________________________
 ## GENEL NOTLAR
 
 #### Karakter
