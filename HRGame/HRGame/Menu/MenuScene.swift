@@ -17,8 +17,16 @@ class MenuScene: SKScene {
     var stageLabelNode:SKLabelNode!
     
     override func didMove(to view: SKView) {
+        
         starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
         starfield.advanceSimulationTime(10)
+        
+        let background = SKSpriteNode(imageNamed: "background2")
+        background.size.width = self.frame.size.width * 1.7
+        background.size.height = self.frame.size.height * 1.8
+        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
+        background.zPosition = -3
+        addChild(background)
         
         newGameButtonNode = (self.childNode(withName: "newGameButton") as! SKSpriteNode)
         stageButtonNode = (self.childNode(withName: "stageButton") as! SKSpriteNode)

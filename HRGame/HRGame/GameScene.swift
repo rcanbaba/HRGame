@@ -59,12 +59,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        background.zPosition = -3
 //        addChild(background)
         
-//        let background = SKSpriteNode(imageNamed: "background2")
-//        background.size.width = self.frame.size.width * 1.7
-//        background.size.height = self.frame.size.height * 1.5
-//        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
-//        background.zPosition = -3
-//        addChild(background)
+        let background = SKSpriteNode(imageNamed: "background2")
+        background.size.width = self.frame.size.width * 1.7
+        background.size.height = self.frame.size.height * 1.5
+        background.position = CGPoint(x: (frame.size.width / 2) - 190, y: (frame.size.height / 2) - 160)
+        background.zPosition = -3
+        addChild(background)
         
         let dollar = SKSpriteNode(imageNamed: "dollar")
         dollar.size.height = dollar.size.height / 2.0
@@ -142,13 +142,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
-            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -400), duration: 0.1))
+            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -270), duration: 0.1))
         }
     }
 //
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
         
-        if (lineCount > 9) {
+        if (lineCount > 18) { // 20 olur
             gameTimer!.invalidate()
         }
         
@@ -187,7 +187,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
   
-    
 //  MARK: Stage 2 içim yazıldı
     func addBallwithoutSize (at position: CGPoint, name: String) {
         let ball = SKSpriteNode(imageNamed: name)
@@ -199,8 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
         addChild(ball)
     }
-    
-    
+        
     
     
 //  MARK: Eski yöntemler -----------------
@@ -218,36 +216,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //  MARK: ************ AFTER COLLISION ***********
     func collisionBetween(character: SKNode, ball: SKNode) {
-        pad.zPosition = 2
+        //pad.zPosition = 2
+        let randomNumber = Int.random(in: 1 ... 10)
         switch ball.name {
         case "ballRed":
-            getPoint = 10
-            score = score + 10
+            getPoint = scoreCalculate(ballName: "ballRed", randomNo: randomNumber)
+            score = score + getPoint
             destroy(ball: ball)
         case "ballBlue":
-            getPoint = 25
+            getPoint = scoreCalculate(ballName: "ballBlue", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + 25
+            score = score + getPoint
         case "ballCyan":
-            getPoint = -5
+            getPoint = scoreCalculate(ballName: "ballCyan", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + -5
+            score = score + getPoint
         case "ballGreen":
-            getPoint = -1
+            getPoint = scoreCalculate(ballName: "ballGreen", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + -1
+            score = score + getPoint
         case "ballGrey":
-            getPoint = 1
+            getPoint = scoreCalculate(ballName: "ballGrey", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + 1
+            score = score + getPoint
         case "ballPurple":
-            getPoint = 3
+            getPoint = scoreCalculate(ballName: "ballPurple", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + 3
+            score = score + getPoint
         case "ballYellow":
-            getPoint = 20
+            getPoint = scoreCalculate(ballName: "ballYellow", randomNo: randomNumber)
             destroy(ball: ball)
-            score = score + 20
+            score = score + getPoint
         default:
             print("farklı bir şey çarptı!!!")
         }
@@ -257,6 +256,179 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
+    
+    func scoreCalculate(ballName: String, randomNo: Int) -> Int {
+        
+        switch ballName {
+        case "ballGrey":
+            return 1
+        case "ballCyan":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 2
+            case 6:
+                return 2
+            case 7:
+                return 2
+            case 8:
+                return 2
+            case 9:
+                return 2
+            case 10:
+                return 2
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+        case "ballBlue":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 0
+            case 6:
+                return 3
+            case 7:
+                return 3
+            case 8:
+                return 3
+            case 9:
+                return 3
+            case 10:
+                return 3
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+
+        case "ballYellow":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 0
+            case 6:
+                return 0
+            case 7:
+                return 5
+            case 8:
+                return 5
+            case 9:
+                return 5
+            case 10:
+                return 5
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+
+        case "ballGreen":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 0
+            case 6:
+                return 0
+            case 7:
+                return 0
+            case 8:
+                return 10
+            case 9:
+                return 10
+            case 10:
+                return 10
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+
+        case "ballPurple":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 0
+            case 6:
+                return 0
+            case 7:
+                return 0
+            case 8:
+                return 0
+            case 9:
+                return 15
+            case 10:
+                return 15
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+
+        case "ballRed":
+            switch randomNo {
+            case 1:
+                return 0
+            case 2:
+                return 0
+            case 3:
+                return 0
+            case 4:
+                return 0
+            case 5:
+                return 0
+            case 6:
+                return 0
+            case 7:
+                return 0
+            case 8:
+                return 0
+            case 9:
+                return 0
+            case 10:
+                return 20
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+        default:
+            print("farklı bir şey çarptı!!!")
+        }
+        
+        return 0
+        
+    }
+        
+        
+        
+        
+        
     
 //  MARK: Eski Yöntemler
     func nextRow(row: Int){
