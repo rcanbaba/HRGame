@@ -17,7 +17,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var characterPosition = CGPoint()
     var pad:SKSpriteNode = SKSpriteNode()
     var startTouch = CGPoint()
-    var gameTimer:Timer!
+    var stage2timer:Timer!
+    var buttonTimer:Timer!
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
     var lineCount = Int(0)
@@ -38,13 +39,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             getPointLabel.text = " + \(getPoint)"
         }
     }
-
-    
+    var colorButton1:SKSpriteNode = SKSpriteNode()
+    var colorButton2:SKSpriteNode = SKSpriteNode()
+    var colorButton3:SKSpriteNode = SKSpriteNode()
+    var colorButton4:SKSpriteNode = SKSpriteNode()
+    var colorButton5:SKSpriteNode = SKSpriteNode()
+    var colorButtonLabel1:SKLabelNode = SKLabelNode()
+    var colorButtonLabel2:SKLabelNode = SKLabelNode()
+    var colorButtonLabel3:SKLabelNode = SKLabelNode()
+    var colorButtonLabel4:SKLabelNode = SKLabelNode()
+    var colorButtonLabel5:SKLabelNode = SKLabelNode()
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         stageKey = userDefaults.integer(forKey: "stageKey")
         
+        linkButton()
         
 //        starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
 //        starfield.advanceSimulationTime(10)
@@ -125,18 +135,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(stageKey == 1 ){
             nextRow(row: stageCount+1)
         }else if(stageKey == 2){
-            gameTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+            stage2timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+        }else if(stageKey == 3){
+            stage2timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+            
+//  MARK: --------------- BURDA KALDIM ---------------
+            
+            
+            
         }
     }
 //  MARK: STAGE leri yukarda ayarla ---------------
     
-    
-    
+//  MARK: Touches Catch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
             startTouch = location
             characterPosition = character.position
+            
+            let nodesArray = self.nodes(at: location)
+            if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
+                colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
+                colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
+                colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
+                colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
+                colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }
+            buttonTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(buttonReloader), userInfo: nil, repeats: true)
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -149,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
         
         if (lineCount > 18) { // 20 olur
-            gameTimer!.invalidate()
+            stage2timer!.invalidate()
         }
         
         let ballCount = Int.random(in: 2 ... 5)
@@ -183,8 +213,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             random =  Int.random(in: 0 ... 6)
             addBallwithoutSize(at: CGPoint (x: initX, y: 640), name: balls[random])
             initX = initX + deltaX
+            if(stageKey == 3){
+                addButton(buttonCount: bCount+1, name: balls[random])
+            }
         }
-        
     }
   
 //  MARK: Stage 2 içim yazıldı
@@ -198,8 +230,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
         addChild(ball)
     }
-        
     
+//  MARK: Stage 3 Colour Test alanı
+    func addButton (buttonCount: Int, name: String) {
+        
+        
+    }
+        
     
 //  MARK: Eski yöntemler -----------------
     func addBall (at position: CGPoint, name: String, size: CGSize) {
@@ -425,10 +462,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
         
-        
-        
-        
-        
     
 //  MARK: Eski Yöntemler
     func nextRow(row: Int){
@@ -633,6 +666,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if nodeB.name == "character" {
             collisionBetween(character: nodeB, ball: nodeA)
         }
+    }
+
+// MARK: Button Touch link etc
+    
+    func linkButton(){
+        // colorButton1 = (self.childNode(withName: "colorBtn1") as! SKSpriteNode)
+         if let someNode:SKSpriteNode = self.childNode(withName: "colorBtn1") as? SKSpriteNode{
+             colorButton1 = someNode
+             print("colorButton1 linked")
+         }
+        if let someNode:SKSpriteNode = self.childNode(withName: "colorBtn2") as? SKSpriteNode{
+            colorButton2 = someNode
+            print("colorButton2 linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "colorBtn3") as? SKSpriteNode{
+            colorButton3 = someNode
+            print("colorButton3 linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "colorBtn4") as? SKSpriteNode{
+            colorButton4 = someNode
+            print("colorButton4 linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "colorBtn5") as? SKSpriteNode{
+            colorButton5 = someNode
+            print("colorButton5 linked")
+        }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrBtnLbl1") as! SKLabelNode){
+            colorButtonLabel1 = someNode
+            print("colorButtonLabel1 linked")
+        }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrBtnLbl2") as! SKLabelNode){
+            colorButtonLabel2 = someNode
+            print("colorButtonLabel2 linked")
+        }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrBtnLbl3") as! SKLabelNode){
+            colorButtonLabel3 = someNode
+            print("colorButtonLabel3 linked")
+        }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrBtnLbl4") as! SKLabelNode){
+            colorButtonLabel4 = someNode
+            print("colorButtonLabel4 linked")
+        }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrBtnLbl5") as! SKLabelNode){
+            colorButtonLabel5 = someNode
+            print("colorButtonLabel5 linked")
+        }
+        colorButtonLabel1.text = "CYAN"
+        colorButtonLabel1.fontColor = .cyan
+        colorButtonLabel1.fontName = "AvenirNext-Bold"
+        colorButtonLabel2.text = "PURPLE"
+        colorButtonLabel2.fontColor = .yellow
+        colorButtonLabel2.fontName = "AvenirNext-Bold"
+        colorButtonLabel3.text = "GREEN"
+        colorButtonLabel3.fontColor = .green
+        colorButtonLabel3.fontName = "AvenirNext-Bold"
+        colorButtonLabel4.text = "YELLOW"
+        colorButtonLabel4.fontColor = .gray
+        colorButtonLabel4.fontName = "AvenirNext-Bold"
+        colorButtonLabel5.text = "GRAY"
+        colorButtonLabel5.fontColor = .purple
+        colorButtonLabel5.fontName = "AvenirNext-Bold"
+        
+        //colorButtonLabel1
+    }
+    
+     @objc func buttonReloader(){
+        buttonTimer!.invalidate()
+        colorButton1.texture = SKTexture(imageNamed: "colorBtn")
+        colorButton2.texture = SKTexture(imageNamed: "colorBtn")
+        colorButton3.texture = SKTexture(imageNamed: "colorBtn")
+        colorButton4.texture = SKTexture(imageNamed: "colorBtn")
+        colorButton5.texture = SKTexture(imageNamed: "colorBtn")
+        
     }
     
 }
