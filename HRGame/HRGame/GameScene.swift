@@ -49,6 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorButtonLabel3:SKLabelNode = SKLabelNode()
     var colorButtonLabel4:SKLabelNode = SKLabelNode()
     var colorButtonLabel5:SKLabelNode = SKLabelNode()
+    var colorQuestionLabel:SKLabelNode = SKLabelNode()
     
     override func didMove(to view: SKView) {
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -135,6 +136,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(stageKey == 1 ){
             nextRow(row: stageCount+1)
         }else if(stageKey == 2){
+            isHiddenColorLabels(status: true)
+            isHiddenColorButtons(status: true)
+            isHiddenColorQuestion(status: false)
             stage2timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
         }else if(stageKey == 3){
             stage2timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
@@ -181,11 +185,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (lineCount > 18) { // 20 olur
             stage2timer!.invalidate()
         }
-        
         let ballCount = Int.random(in: 2 ... 5)
         addLine(bCount: ballCount)
         lineCount = lineCount + 1
-        
     }
 //  MARK: Set Lines ******************
     func addLine(bCount: Int){
@@ -712,6 +714,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             colorButtonLabel5 = someNode
             print("colorButtonLabel5 linked")
         }
+        if let someNode:SKLabelNode = (self.childNode(withName: "clrQuestionLbl") as! SKLabelNode){
+            colorQuestionLabel = someNode
+            print("colorQuestionLabel linked")
+        }
         colorButtonLabel1.text = "CYAN"
         colorButtonLabel1.fontColor = .cyan
         colorButtonLabel1.fontName = "AvenirNext-Bold"
@@ -727,7 +733,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         colorButtonLabel5.text = "GRAY"
         colorButtonLabel5.fontColor = .purple
         colorButtonLabel5.fontName = "AvenirNext-Bold"
-        
         //colorButtonLabel1
     }
     
@@ -739,6 +744,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         colorButton4.texture = SKTexture(imageNamed: "colorBtn")
         colorButton5.texture = SKTexture(imageNamed: "colorBtn")
         
+    }
+    
+    
+    func isHiddenColorLabels(status: Bool){
+        
+        if(status == true){
+            colorButtonLabel1.isHidden = true
+            colorButtonLabel2.isHidden = true
+            colorButtonLabel3.isHidden = true
+            colorButtonLabel4.isHidden = true
+            colorButtonLabel5.isHidden = true
+        }else{
+            colorButtonLabel1.isHidden = false
+            colorButtonLabel2.isHidden = false
+            colorButtonLabel3.isHidden = false
+            colorButtonLabel4.isHidden = false
+            colorButtonLabel5.isHidden = false
+        }
+
+    }
+    func isHiddenColorButtons(status: Bool){
+        if(status == true){
+             colorButton1.isHidden = true
+             colorButton2.isHidden = true
+             colorButton3.isHidden = true
+             colorButton4.isHidden = true
+             colorButton5.isHidden = true
+         }else{
+             colorButton1.isHidden = false
+             colorButton2.isHidden = false
+             colorButton3.isHidden = false
+             colorButton4.isHidden = false
+             colorButton5.isHidden = false
+         }
+    }
+    func isHiddenColorQuestion(status: Bool){
+        colorQuestionLabel.text = "Could you choose \n the rigth color button?"
+        colorButtonLabel1.fontName = "AvenirNext-Bold"
+        colorButtonLabel1.fontColor = .black
+        colorButtonLabel1.fontSize = 30.0
+        
+        if(status == true){
+            colorQuestionLabel.isHidden = true
+         }else{
+            colorQuestionLabel.isHidden = false
+         }
     }
     
 }
