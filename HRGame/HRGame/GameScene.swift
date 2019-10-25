@@ -10,6 +10,8 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var pauseStageButtonNode:SKSpriteNode!
+    var playStageButtonNode:SKSpriteNode!
     var balls = ["ballRed","ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballYellow"]
     let userDefaults = UserDefaults.standard
     var starfield:SKEmitterNode!
@@ -56,6 +58,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stageKey = userDefaults.integer(forKey: "stageKey")
         
         linkButton()
+        
+        pauseStageButtonNode = (self.childNode(withName: "pauseStageButton") as! SKSpriteNode)
+        playStageButtonNode = (self.childNode(withName: "playStageButton") as! SKSpriteNode)
         
 //        starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
 //        starfield.advanceSimulationTime(10)
@@ -169,6 +174,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
             }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
                 colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+            }else if(nodesArray.first?.name == "pauseStageButton" ){
+                self.scene?.view?.isPaused = true
+                stage2timer.invalidate()
+            }else if(nodesArray.first?.name == "playStageButton" ){
+                self.scene?.view?.isPaused = false
+                stage2timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
             }
             buttonTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(buttonReloader), userInfo: nil, repeats: true)
         }

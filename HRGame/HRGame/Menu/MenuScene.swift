@@ -15,6 +15,7 @@ class MenuScene: SKScene {
     var newGameButtonNode:SKSpriteNode!
     var stageButtonNode:SKSpriteNode!
     var stageLabelNode:SKLabelNode!
+    var exitGameButtonNode:SKSpriteNode!
     
     override func didMove(to view: SKView) {
         
@@ -31,7 +32,7 @@ class MenuScene: SKScene {
         newGameButtonNode = (self.childNode(withName: "newGameButton") as! SKSpriteNode)
         stageButtonNode = (self.childNode(withName: "stageButton") as! SKSpriteNode)
         stageButtonNode.texture = SKTexture(imageNamed: "stageButton")
-        
+        exitGameButtonNode = (self.childNode(withName: "exitGameButton") as! SKSpriteNode)
         stageLabelNode = (self.childNode(withName: "stageLabel") as! SKLabelNode)
         
         let userDefaults = UserDefaults.standard
@@ -70,7 +71,9 @@ class MenuScene: SKScene {
                 }
             }else if(nodesArray.first?.name == "stageButton"){
                 changeStage()
-                
+            }else if(nodesArray.first?.name == "exitGameButton"){
+                let scenek = SKScene(fileNamed: "GameScene")
+                scenek!.camera!.addChild(exitGameButtonNode)
             }
         }
     }
