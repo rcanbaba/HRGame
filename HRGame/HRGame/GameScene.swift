@@ -10,8 +10,10 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var stage3clok =  Int(100)
     var pauseStageButtonNode:SKSpriteNode!
     var playStageButtonNode:SKSpriteNode!
+    var menuButtonNode:SKSpriteNode!
     var balls = ["ballRed","ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballYellow"]
     let userDefaults = UserDefaults.standard
     var starfield:SKEmitterNode!
@@ -19,8 +21,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var characterPosition = CGPoint()
     var pad:SKSpriteNode = SKSpriteNode()
     var startTouch = CGPoint()
-    var stage2timer:Timer!
+    var stageTimer:Timer!
+    var stage3Timer:Timer!
     var buttonTimer:Timer!
+    var colorTimer:Timer!
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
     var lineCount = Int(0)
@@ -41,6 +45,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             getPointLabel.text = " + \(getPoint)"
         }
     }
+    var stage3clockLabel: SKLabelNode!
+    var stage3clock = 100 {
+        didSet {
+            stage3clockLabel.text = "Timer: \(stage3clock)"
+        }
+    }
     var colorButton1:SKSpriteNode = SKSpriteNode()
     var colorButton2:SKSpriteNode = SKSpriteNode()
     var colorButton3:SKSpriteNode = SKSpriteNode()
@@ -52,8 +62,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorButtonLabel4:SKLabelNode = SKLabelNode()
     var colorButtonLabel5:SKLabelNode = SKLabelNode()
     var colorQuestionLabel:SKLabelNode = SKLabelNode()
+    var colorViewTab:SKSpriteNode = SKSpriteNode()
     
     override func didMove(to view: SKView) {
+        lineCount = 0
+        
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         stageKey = userDefaults.integer(forKey: "stageKey")
         
@@ -61,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         pauseStageButtonNode = (self.childNode(withName: "pauseStageButton") as! SKSpriteNode)
         playStageButtonNode = (self.childNode(withName: "playStageButton") as! SKSpriteNode)
-        
+        menuButtonNode = (self.childNode(withName: "menuButton") as! SKSpriteNode)
 //        starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
 //        starfield.advanceSimulationTime(10)
 //        self.addChild(starfield)
@@ -116,8 +129,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         getPointLabel.text = "Point"
         getPointLabel.fontSize = 60
         getPointLabel.horizontalAlignmentMode = .left
-        getPointLabel.position = CGPoint(x: -60, y: 480)
+        getPointLabel.position = CGPoint(x: -200, y: 480)
         addChild(getPointLabel)
+        
+        stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
+        stage3clockLabel.text = "Clock"
+        stage3clockLabel.fontSize = 60
+        stage3clockLabel.horizontalAlignmentMode = .left
+        stage3clockLabel.position = CGPoint(x: 0, y: 480)
+        addChild(stage3clockLabel)
         
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -138,51 +158,85 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("that worked")
         }
         
-        if(stageKey == 1 ){
+        
+        if(stageKey == 0 ){ // tutorial elle set ettiğimiz kısım
+            setColorViewTab(isHidden: true)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+            setColorQuestion(isHidden: true)
             nextRow(row: stageCount+1)
-        }else if(stageKey == 2){
-            isHiddenColorLabels(status: true)
-            isHiddenColorButtons(status: true)
-            isHiddenColorQuestion(status: false)
-            stage2timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
-        }else if(stageKey == 3){
-            stage2timer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
-            
-//  MARK: --------------- BURDA KALDIM ---------------
-            
-            
-            
+        }else if(stageKey == 1){ // düz oyun top yakala
+            setColorViewTab(isHidden: true)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+            setColorQuestion(isHidden: true)
+            stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+        }else if(stageKey == 2){ // renk soruları gelecek
+            setColorViewTab(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+            setColorQuestion(isHidden: false)
+            stageTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+        }else if(stageKey == 3){ // süre geri sayımı
+            stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+
         }
     }
 //  MARK: STAGE leri yukarda ayarla ---------------
     
-//  MARK: Touches Catch
+//  MARK: Touches Catch //stagelere göre ayrılacak
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
             startTouch = location
             characterPosition = character.position
-            
             let nodesArray = self.nodes(at: location)
-            if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
-                colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
-            }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
-                colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
-            }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
-                colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
-            }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
-                colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
-            }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
-                colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
-            }else if(nodesArray.first?.name == "pauseStageButton" ){
+            
+            if(stageKey == 0 ){ // tutorial elle set ettiğimiz kısım
+                
+            }else if(stageKey == 1){ // düz oyun
+
+            }else if(stageKey == 2 ){ // butonlar lazım
+                if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
+                    colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+                }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
+                    colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+                }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
+                    colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+                }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
+                    colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+                }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
+                    colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+                }
+                
+                buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
+                
+                
+            }else if(stageKey == 3){ // butonlar ve süre
+
+            }
+            
+            if(nodesArray.first?.name == "pauseStageButton" ){ /// düzeltilecek
                 self.scene?.view?.isPaused = true
-                stage2timer.invalidate()
+                //stageTimer.invalidate()
             }else if(nodesArray.first?.name == "playStageButton" ){
                 self.scene?.view?.isPaused = false
-                stage2timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+               // stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+            }else if(nodesArray.first?.name == "menuButton" ){
+                    stageTimer.invalidate()
+                    if let scene = SKScene(fileNamed: "MenuScene") {
+                    // Set the scale mode to scale to fit the window
+                    scene.scaleMode = .aspectFill
+                    // Present the scene
+                    let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
+                    self.view!.presentScene(scene, transition: transition)
+                }
+               // stageTimer.invalidate() gerekli mi bilmiyorum
+               // buttonTimer.invalidate()
             }
-            buttonTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(buttonReloader), userInfo: nil, repeats: true)
         }
+        
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
@@ -190,16 +244,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -270), duration: 0.1))
         }
     }
-//
+    
+// MARK: ADD NEW LINE STAGE 2 & 3 BAŞLANGICI
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
         
-        if (lineCount > 18) { // 20 olur
-            stage2timer!.invalidate()
+        if(stageKey == 2 || stageKey == 3){
+            setColorViewTab(isHidden: false)
+            setColorQuestion(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+          //  colorTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(activateColors), userInfo: "a", repeats: true)
         }
+        
+        if (lineCount > 20) { // 20 olur
+            stageTimer!.invalidate()
+            
+        }
+        
         let ballCount = Int.random(in: 2 ... 5)
         addLine(bCount: ballCount)
+        
         lineCount = lineCount + 1
     }
+    
 //  MARK: Set Lines ******************
     func addLine(bCount: Int){
   // initX & deltaX setted for ball positions
@@ -222,14 +289,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("Error: inRandom line generator")
         }
         
+        var randArray : [Int] = []
+        randomArrayGenaratorWithoutDuplicates(each: bCount)
+        
         for _ in 0..<bCount{
             random =  Int.random(in: 0 ... 6)
             addBallwithoutSize(at: CGPoint (x: initX, y: 640), name: balls[random])
             initX = initX + deltaX
-            if(stageKey == 3){
-                addButton(buttonCount: bCount+1, name: balls[random])
-            }
+            randArray.append(random)
         }
+        renameColorLabels(ballNo: randArray)
+        
     }
   
 //  MARK: Stage 2 içim yazıldı
@@ -244,12 +314,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(ball)
     }
     
-//  MARK: Stage 3 Colour Test alanı
-    func addButton (buttonCount: Int, name: String) {
+    func renameColorLabels(ballNo: [Int]){
+        
+        let incomeCount = ballNo.count
+        
+        
+        
+        for _ in 0..<incomeCount{
+
+        }
+        
+        
+        // 5 butonumuz kaç buton geleceğine bakıp ona göre random üreteceğiz.
+        
+        
+        
         
         
     }
-        
+    
+
     
 //  MARK: Eski yöntemler -----------------
     func addBall (at position: CGPoint, name: String, size: CGSize) {
@@ -262,10 +346,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
         addChild(ball)
     }
-
     
 //  MARK: ************ AFTER COLLISION ***********
     func collisionBetween(character: SKNode, ball: SKNode) {
+        
         //pad.zPosition = 2
         let randomNumber = Int.random(in: 1 ... 10)
         switch ball.name {
@@ -301,7 +385,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("farklı bir şey çarptı!!!")
         }
         stageCount = stageCount + 1
-        if(stageKey == 1){
+        if(stageKey == 0){ // tutorial ise yakaladıkça oyun devam edecek
             nextRow(row: stageCount)
         }
         
@@ -663,12 +747,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 //  MARK: REMOVE GIVEN NODE
     func destroy(ball: SKNode) {
-//        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles") {
-//            fireParticles.position = ball.position
-//            addChild(fireParticles)
-//        }
         ball.removeFromParent()
+        if(stageKey == 2 || stageKey == 3){
+            setColorQuestion(isHidden: true)
+            setColorLabels(isHidden: false)
+            setColorButtons(isHidden: false)
+            colorTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(deActivateColors), userInfo: "ada", repeats: true)
+        }
     }
+    
 // MARK: COLLISION DETECTION
     func didBegin(_ contact: SKPhysicsContact) {
         character.name = "character"
@@ -729,6 +816,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             colorQuestionLabel = someNode
             print("colorQuestionLabel linked")
         }
+        if let someNode:SKSpriteNode = self.childNode(withName: "colorView") as? SKSpriteNode{
+            colorViewTab = someNode
+            print("colorViewTab linked")
+        }
+        
+        
         colorButtonLabel1.text = "CYAN"
         colorButtonLabel1.fontColor = .cyan
         colorButtonLabel1.fontName = "AvenirNext-Bold"
@@ -758,9 +851,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func isHiddenColorLabels(status: Bool){
+    func setColorLabels(isHidden: Bool){
         
-        if(status == true){
+        if(isHidden == true){
             colorButtonLabel1.isHidden = true
             colorButtonLabel2.isHidden = true
             colorButtonLabel3.isHidden = true
@@ -775,8 +868,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
     }
-    func isHiddenColorButtons(status: Bool){
-        if(status == true){
+    func setColorButtons(isHidden: Bool){
+        if(isHidden == true){
              colorButton1.isHidden = true
              colorButton2.isHidden = true
              colorButton3.isHidden = true
@@ -790,17 +883,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
              colorButton5.isHidden = false
          }
     }
-    func isHiddenColorQuestion(status: Bool){
+    func setColorQuestion(isHidden: Bool){
         colorQuestionLabel.text = "Could you choose \n the rigth color button?"
         colorButtonLabel1.fontName = "AvenirNext-Bold"
-        colorButtonLabel1.fontColor = .black
-        colorButtonLabel1.fontSize = 30.0
-        
-        if(status == true){
+        colorButtonLabel1.fontColor = .systemPink
+        colorButtonLabel1.fontSize = 28.0
+        if(isHidden == true){
             colorQuestionLabel.isHidden = true
          }else{
             colorQuestionLabel.isHidden = false
          }
     }
+    func setColorViewTab(isHidden: Bool){
+
+        if(isHidden == true){
+            colorViewTab.isHidden = true
+         }else{
+            colorViewTab.isHidden = false
+         }
+    }
+    
+    @objc func activateColors(){ //count koy ona ulaşınca girmeyi bıraksın
+      //  colorTimer.invalidate()
+        setColorQuestion(isHidden: true)
+        setColorLabels(isHidden: false)
+        setColorButtons(isHidden: false)
+    }
+    
+    @objc func deActivateColors(){ //count koy ona ulaşınca girmeyi bıraksın
+        colorTimer.invalidate()
+        setColorQuestion(isHidden: false)
+        setColorLabels(isHidden: true)
+        setColorButtons(isHidden: true)
+    }
+    
+    @objc func stage3countDown(){ //count koy ona ulaşınca girmeyi bıraksın
+        self.stage3clock = self.stage3clock - 1
+        if(stage3clock == 0){
+            print("times up")
+            stage3Timer.invalidate()
+        }
+    }
+    
+    
+    func randomArrayGenaratorWithoutDuplicates(each: Int) -> [Int]{
+        
+        var noDuplicateArray : [Int] = []
+        var noDupArraySize : Int = 0
+        var randNumber: Int = 0
+        var down: Int = 0
+        
+        for _ in down..<each{
+            
+            randNumber = Int.random(in: 0 ... 6)
+            
+            for b in 0..<noDupArraySize{
+                if(randNumber  != noDuplicateArray[b]){
+                    noDuplicateArray.append(randNumber)
+                }else{
+                    down = down - 1
+                }
+            }
+            
+            if(noDupArraySize == 0){
+                noDuplicateArray.append(randNumber)
+            }
+            noDupArraySize = noDuplicateArray.count
+        }
+        return noDuplicateArray
+        
+    }
+    
     
 }

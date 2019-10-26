@@ -101,8 +101,8 @@ ________________________________________________________________________________
 
 #### Karakter
 
-- [ ] 1.  Sabit dururken kendi kendine hareket edecek.
-- [ ] 2.  Karakter sağa yada sola sürüklenebilecek. Dokunduğumuz yere gidecek. (İlk oyundan bakarak çöz)
+- [x] 1.  Sabit dururken kendi kendine hareket edecek.
+- [x] 2.  Karakter sağa yada sola sürüklenebilecek. Dokunduğumuz yere gidecek. (İlk oyundan bakarak çöz)
 - [ ] 3.  Karakter sürüklendiği yöne göre yön değiştirmeli “asset”
 
 #### Etaplar
@@ -156,3 +156,31 @@ d. İncelenmeli  [https://subscription.packtpub.com/book/game_development/978178
 a.  [https://subscription.packtpub.com/book/game_development/9781784393557/4](https://subscription.packtpub.com/book/game_development/9781784393557/4)  
 b. 
 [https://stackoverflow.com/questions/33321071/swift-spritekit-how-to-restart-gamescene-after-game-over-stop-lagging](https://stackoverflow.com/questions/33321071/swift-spritekit-how-to-restart-gamescene-after-game-over-stop-lagging)
+
+______________________________________________________________________________________________________________________________
+## GELİŞTİRME NOTLARI
+
+PLAY PAUSE - > 
+butonları timer ı bozduğu için timer ın ayarlanması gerek en son yapılacak.
+
+TUTORIAL - > 
+Top yakalacıkça bir sonraki top yollanıyor eğer yakalayamazsa baştan başlayacak
+20 sıra top yakalamayı tam bitirene kadar tekrar başlatacak
+Statik yolluyoruz top kaçarsa uyarı verecek vs. 
+
+STAGE 1 ->
+random line generator de tekrar aynı renk üretmeyi durdur.
+
+++ ANA MENUYE DÖN BUTONU -> koy ok
+
+STAGE 2 -> 
+hallolacak düşün
+
+STAGE 3 TIMER 
+didset ile label a ekleyeceğiz scheduled timer bi count ı artıracak her sn de onu yazacağız anlık olarak
+
+LEADERBOARDS
+userdefault a kaydedilecek multi array olarak
+
+BİRDEN FAZLA TOP ALMA SORUNU
+bir çarpışma detect edilince Z değerini değiştir
