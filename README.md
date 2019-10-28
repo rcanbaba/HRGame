@@ -169,7 +169,7 @@ Top yakalacıkça bir sonraki top yollanıyor eğer yakalayamazsa baştan başla
 Statik yolluyoruz top kaçarsa uyarı verecek vs. 
 
 STAGE 1 ->
-random line generator de tekrar aynı renk üretmeyi durdur.
+[x] random line generator de tekrar aynı renk üretmeyi durdur.
 
 ++ ANA MENUYE DÖN BUTONU -> koy ok
 
@@ -177,10 +177,15 @@ STAGE 2 ->
 hallolacak düşün
 
 STAGE 3 TIMER 
-didset ile label a ekleyeceğiz scheduled timer bi count ı artıracak her sn de onu yazacağız anlık olarak
+[x] didset ile label a ekleyeceğiz scheduled timer bi count ı artıracak her sn de onu yazacağız anlık olarak
 
 LEADERBOARDS
 userdefault a kaydedilecek multi array olarak
+textfield lazım bunun için hepsi birlikte
 
 BİRDEN FAZLA TOP ALMA SORUNU
-bir çarpışma detect edilince Z değerini değiştir
+bir çarpışma detect edilince Z değerini değiştir. karakterin Z değerini değiştir.
+
+Bir line daki top sayısının randomluğunu da biz bi random generator ile ayarlayalım. yaklaşık olarak bilelim.
+
+

@@ -22,12 +22,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var pad:SKSpriteNode = SKSpriteNode()
     var startTouch = CGPoint()
     var stageTimer:Timer!
+    var getPointTimer:Timer!
+    var getPointTimer1:Timer!
+    var getPointTimer2:Timer!
+    var getPointTimer3:Timer!
     var stage3Timer:Timer!
     var buttonTimer:Timer!
     var colorTimer:Timer!
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
     var lineCount = Int(0)
+    var collidedBallName: String = ""
     var score = 0{
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -42,7 +47,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var getPointLabel: SKLabelNode!
     var getPoint = 0 {
         didSet {
-            getPointLabel.text = " + \(getPoint)"
+            if( getPoint == 0){
+                getPointLabel.fontColor = .red
+            }else{
+                getPointLabel.fontColor = .green
+            }
+
+            getPointLabel.text = "+\(getPoint)"
+            
+            if (getPoint > 5){
+                getPointTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(setGetPointLabelFontSize), userInfo: 1, repeats: true)
+                getPointTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(setGetPointLabelFontSize1), userInfo: 2, repeats: true)
+                getPointTimer2 = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(setGetPointLabelFontSize2), userInfo: 3, repeats: true)
+                getPointTimer3 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(setGetPointLabelFontSize3), userInfo: 4, repeats: true)
+            }else{
+                getPointLabel.fontSize = 50
+            }
+            
         }
     }
     var stage3clockLabel: SKLabelNode!
@@ -75,18 +96,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseStageButtonNode = (self.childNode(withName: "pauseStageButton") as! SKSpriteNode)
         playStageButtonNode = (self.childNode(withName: "playStageButton") as! SKSpriteNode)
         menuButtonNode = (self.childNode(withName: "menuButton") as! SKSpriteNode)
-//        starfield = (self.childNode(withName: "starfield") as! SKEmitterNode)
-//        starfield.advanceSimulationTime(10)
-//        self.addChild(starfield)
-//        starfield.zPosition = -1
-        
-        
-//        let background = SKSpriteNode(imageNamed: "background")
-//        background.size.height = 1500
-//        background.position = CGPoint(x: 0, y: 0)
-//        background.blendMode = .replace
-//        background.zPosition = -3
-//        addChild(background)
         
         let background = SKSpriteNode(imageNamed: "background2")
         background.size.width = self.frame.size.width * 1.7
@@ -126,18 +135,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(stageLabel)
         
         getPointLabel = SKLabelNode(fontNamed: "Chalkduster")
-        getPointLabel.text = "Point"
         getPointLabel.fontSize = 60
-        getPointLabel.horizontalAlignmentMode = .left
-        getPointLabel.position = CGPoint(x: -200, y: 480)
+        getPointLabel.horizontalAlignmentMode = .center
+        getPointLabel.position = CGPoint(x: 50, y: 590)
+        getPointLabel.zPosition = 3
         addChild(getPointLabel)
         
-        stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
-        stage3clockLabel.text = "Clock"
-        stage3clockLabel.fontSize = 60
-        stage3clockLabel.horizontalAlignmentMode = .left
-        stage3clockLabel.position = CGPoint(x: 0, y: 480)
-        addChild(stage3clockLabel)
         
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -178,6 +181,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorQuestion(isHidden: false)
             stageTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
         }else if(stageKey == 3){ // süre geri sayımı
+            setColorViewTab(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+            setColorQuestion(isHidden: false)
+            stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
+            stage3clockLabel.text = "Clock"
+            stage3clockLabel.fontSize = 60
+            stage3clockLabel.horizontalAlignmentMode = .left
+            stage3clockLabel.position = CGPoint(x: 0, y: 480)
+            addChild(stage3clockLabel)
             stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
 
         }
@@ -187,6 +200,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //  MARK: Touches Catch //stagelere göre ayrılacak
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        var collBallName: String = ""
+        
         let touch = touches.first
         if let location = touch?.location(in: self){
             startTouch = location
@@ -198,16 +214,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }else if(stageKey == 1){ // düz oyun
 
             }else if(stageKey == 2 ){ // butonlar lazım
+                
+                collBallName = getCollidedBallName(ball: collidedBallName)
+                
                 if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
                     colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel1.text == collBallName){
+                            score = score + 10
+                            getPoint = 10
+                        }
                 }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
                     colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel2.text == collBallName){
+                            score = score + 10
+                            getPoint = 10
+                        }
                 }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
                     colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel3.text == collBallName){
+                            score = score + 10
+                            getPoint = 10
+                        }
                 }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
                     colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel4.text == collBallName){
+                            score = score + 10
+                            getPoint = 10
+                        }
                 }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
                     colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel5.text == collBallName){
+                            score = score + 10
+                            getPoint = 10
+                        }
                 }
                 
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
@@ -223,8 +262,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }else if(nodesArray.first?.name == "playStageButton" ){
                 self.scene?.view?.isPaused = false
                // stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
-            }else if(nodesArray.first?.name == "menuButton" ){
+            }else if(nodesArray.first?.name == "menuButton" ){//stagelere göre ayır
+                
+                if (stageKey != 0 ){
                     stageTimer.invalidate()
+                }
                     if let scene = SKScene(fileNamed: "MenuScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .aspectFill
@@ -256,15 +298,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           //  colorTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(activateColors), userInfo: "a", repeats: true)
         }
         
-        if (lineCount > 20) { // 20 olur
+        if (lineCount > 4 && stageKey == 2) { // 20 olur
             stageTimer!.invalidate()
+            endGameScreen()
             
+        }else{
+            let ballCount = Int.random(in: 2 ... 5)
+            addLine(bCount: ballCount)
+            lineCount = lineCount + 1
         }
         
-        let ballCount = Int.random(in: 2 ... 5)
-        addLine(bCount: ballCount)
-        
-        lineCount = lineCount + 1
     }
     
 //  MARK: Set Lines ******************
@@ -290,15 +333,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         var randArray : [Int] = []
-        randomArrayGenaratorWithoutDuplicates(each: bCount)
+        randArray = randomArrayGenaratorWithoutDuplicates(each: 5)
         
-        for _ in 0..<bCount{
-            random =  Int.random(in: 0 ... 6)
-            addBallwithoutSize(at: CGPoint (x: initX, y: 640), name: balls[random])
+        //labellamaya yolla
+        
+        for a in 0..<bCount{
+            addBallwithoutSize(at: CGPoint (x: initX, y: 640), name: balls[randArray[a]])
             initX = initX + deltaX
-            randArray.append(random)
         }
-        renameColorLabels(ballNo: randArray)
+        
+        arrangeButtonLabels(colorArr: randArray)
+        
+        //renameColorLabels(ballNo: randArray)
         
     }
   
@@ -350,6 +396,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //  MARK: ************ AFTER COLLISION ***********
     func collisionBetween(character: SKNode, ball: SKNode) {
         
+        collidedBallName = ball.name!
         //pad.zPosition = 2
         let randomNumber = Int.random(in: 1 ... 10)
         switch ball.name {
@@ -752,6 +799,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorQuestion(isHidden: true)
             setColorLabels(isHidden: false)
             setColorButtons(isHidden: false)
+            
             colorTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(deActivateColors), userInfo: "ada", repeats: true)
         }
     }
@@ -822,21 +870,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        colorButtonLabel1.text = "CYAN"
-        colorButtonLabel1.fontColor = .cyan
-        colorButtonLabel1.fontName = "AvenirNext-Bold"
-        colorButtonLabel2.text = "PURPLE"
-        colorButtonLabel2.fontColor = .yellow
-        colorButtonLabel2.fontName = "AvenirNext-Bold"
-        colorButtonLabel3.text = "GREEN"
-        colorButtonLabel3.fontColor = .green
-        colorButtonLabel3.fontName = "AvenirNext-Bold"
-        colorButtonLabel4.text = "YELLOW"
-        colorButtonLabel4.fontColor = .gray
-        colorButtonLabel4.fontName = "AvenirNext-Bold"
-        colorButtonLabel5.text = "GRAY"
-        colorButtonLabel5.fontColor = .purple
-        colorButtonLabel5.fontName = "AvenirNext-Bold"
+
         //colorButtonLabel1
     }
     
@@ -884,10 +918,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          }
     }
     func setColorQuestion(isHidden: Bool){
-        colorQuestionLabel.text = "Could you choose \n the rigth color button?"
-        colorButtonLabel1.fontName = "AvenirNext-Bold"
-        colorButtonLabel1.fontColor = .systemPink
-        colorButtonLabel1.fontSize = 28.0
+        colorQuestionLabel.text = "What is the name of the \n caught ball color?"
+        colorQuestionLabel.fontName = "AvenirNext-Bold"
+        colorQuestionLabel.fontColor = .systemPink
+        colorQuestionLabel.fontSize = 40.0
         if(isHidden == true){
             colorQuestionLabel.isHidden = true
          }else{
@@ -925,32 +959,165 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+// balls = ["ballRed","ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballYellow"]
+    func arrangeButtonLabels(colorArr: [Int]){
+        
+        var shuffledColArr = colorArr.shuffled()
+
+        var nameArry: [String] = []
+        
+        for a in 0..<shuffledColArr.count{
+            
+            if(shuffledColArr[a] == 0){
+                nameArry.append("RED")
+            }else if(shuffledColArr[a] == 1){
+                nameArry.append("BLUE")
+            }else if(shuffledColArr[a] == 2){
+                nameArry.append("CYAN")
+            }else if(shuffledColArr[a] == 3){
+                nameArry.append("GREEN")
+            }else if(shuffledColArr[a] == 4){
+                nameArry.append("GRAY")
+            }else if(shuffledColArr[a] == 5){
+                nameArry.append("PURPLE")
+            }else if(shuffledColArr[a] == 6){
+                nameArry.append("YELLOW")
+            }
+        
+        }
+        
+        var shuffledFontArr = shuffledColArr.shuffled()
+        
+        var fontColorArry: [UIColor] = []
+        
+                
+        for a in 0..<shuffledFontArr.count{
+            
+            if(shuffledFontArr[a] == 0){
+                fontColorArry.append(.red)
+            }else if(shuffledFontArr[a] == 1){
+                fontColorArry.append(.blue)
+            }else if(shuffledFontArr[a] == 2){
+                fontColorArry.append(.cyan)
+            }else if(shuffledFontArr[a] == 3){
+                fontColorArry.append(.green)
+            }else if(shuffledFontArr[a] == 4){
+                fontColorArry.append(.gray)
+            }else if(shuffledFontArr[a] == 5){
+                fontColorArry.append(.purple)
+            }else if(shuffledFontArr[a] == 6){
+                fontColorArry.append(.yellow)
+            }
+        
+        }
+        
+        colorButtonLabel1.text = nameArry[0]
+        colorButtonLabel1.fontColor = fontColorArry[0]
+        colorButtonLabel1.fontName = "AvenirNext-Bold"
+        colorButtonLabel2.text = nameArry[1]
+        colorButtonLabel2.fontColor = fontColorArry[1]
+        colorButtonLabel2.fontName = "AvenirNext-Bold"
+        colorButtonLabel3.text = nameArry[2]
+        colorButtonLabel3.fontColor = fontColorArry[2]
+        colorButtonLabel3.fontName = "AvenirNext-Bold"
+        colorButtonLabel4.text = nameArry[3]
+        colorButtonLabel4.fontColor = fontColorArry[3]
+        colorButtonLabel4.fontName = "AvenirNext-Bold"
+        colorButtonLabel5.text = nameArry[4]
+        colorButtonLabel5.fontColor = fontColorArry[4]
+        colorButtonLabel5.fontName = "AvenirNext-Bold"
+        
+        
+        
+    }
+    
     
     func randomArrayGenaratorWithoutDuplicates(each: Int) -> [Int]{
         
         var noDuplicateArray : [Int] = []
         var noDupArraySize : Int = 0
         var randNumber: Int = 0
-        var down: Int = 0
+        var a : Int = 0
+        var flag : Bool = false
         
-        for _ in down..<each{
+        while( a < each ){
             
             randNumber = Int.random(in: 0 ... 6)
             
             for b in 0..<noDupArraySize{
-                if(randNumber  != noDuplicateArray[b]){
-                    noDuplicateArray.append(randNumber)
-                }else{
-                    down = down - 1
+                if(randNumber  == noDuplicateArray[b]){
+                    flag = true
                 }
             }
             
-            if(noDupArraySize == 0){
+            if(flag == false){
                 noDuplicateArray.append(randNumber)
+                a = a + 1
             }
             noDupArraySize = noDuplicateArray.count
+            flag = false
+
         }
+        
         return noDuplicateArray
+        
+    }
+    
+    
+    func getCollidedBallName(ball: String) -> String{
+        switch ball {
+        case "ballRed":
+            return "RED"
+        case "ballBlue":
+            return "BLUE"
+        case "ballCyan":
+            return "CYAN"
+        case "ballGreen":
+            return "GREEN"
+        case "ballGrey":
+            return "GRAY"
+        case "ballPurple":
+            return "PURPLE"
+        case "ballYellow":
+            return "YELLOW"
+        default:
+            print("Wrong Name in collidedBall")
+            return "ERROR"
+        }
+    }
+    
+    @objc func setGetPointLabelFontSize(){ //count koy ona ulaşınca girmeyi bıraksın
+        getPointTimer.invalidate()
+        getPointLabel.fontSize = 80
+    }
+    @objc func setGetPointLabelFontSize1(){ //count koy ona ulaşınca girmeyi bıraksın
+        getPointTimer1.invalidate()
+        getPointLabel.fontSize = 100
+    }
+    @objc func setGetPointLabelFontSize2(){ //count koy ona ulaşınca girmeyi bıraksın
+        getPointTimer2.invalidate()
+        getPointLabel.fontSize = 80
+    }
+    @objc func setGetPointLabelFontSize3(){ //count koy ona ulaşınca girmeyi bıraksın
+        getPointTimer3.invalidate()
+        getPointLabel.fontSize = 50
+    }
+    
+    func endGameScreen(){
+        
+        colorViewTab.size.height = 940
+        colorViewTab.size.width = 680
+        colorViewTab.position = CGPoint(x: 0 , y: -130 )
+        colorViewTab.blendMode = .alpha
+        colorViewTab.zPosition = 30
+        
+        colorQuestionLabel.text = "STAGE \(stageKey) COMPLETED \n     SCORE: \(score)"
+        colorQuestionLabel.fontName = "AvenirNext-Bold"
+        colorQuestionLabel.horizontalAlignmentMode = .center
+        colorQuestionLabel.fontColor = .systemPink
+        colorQuestionLabel.zPosition = 31
+        colorQuestionLabel.fontSize = 50.0
+        colorQuestionLabel.position = CGPoint(x: 0 , y: -180 )
         
     }
     
