@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var stage3clok =  Int(100)
+    var stage3clok =  Int(20)
     var pauseStageButtonNode:SKSpriteNode!
     var playStageButtonNode:SKSpriteNode!
     var menuButtonNode:SKSpriteNode!
@@ -67,7 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     var stage3clockLabel: SKLabelNode!
-    var stage3clock = 100 {
+    var stage3clock = 30 {
         didSet {
             stage3clockLabel.text = "Timer: \(stage3clock)"
         }
@@ -186,12 +186,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: false)
             stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
-            stage3clockLabel.text = "Clock"
+            stage3clockLabel.text = "CountDown"
             stage3clockLabel.fontSize = 60
             stage3clockLabel.horizontalAlignmentMode = .left
             stage3clockLabel.position = CGPoint(x: 0, y: 480)
             addChild(stage3clockLabel)
             stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+            stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
 
         }
     }
@@ -213,7 +214,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }else if(stageKey == 1){ // düz oyun
 
-            }else if(stageKey == 2 ){ // butonlar lazım
+            }else if(stageKey == 2 || stageKey == 3){ // butonlar lazım
                 
                 collBallName = getCollidedBallName(ball: collidedBallName)
                 
@@ -252,8 +253,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
                 
                 
-            }else if(stageKey == 3){ // butonlar ve süre
-
             }
             
             if(nodesArray.first?.name == "pauseStageButton" ){ /// düzeltilecek
@@ -267,6 +266,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if (stageKey != 0 ){
                     stageTimer.invalidate()
                 }
+                if (stageKey == 3){
+                    stage3Timer.invalidate()
+                    stageTimer.invalidate()
+                }
+                
                     if let scene = SKScene(fileNamed: "MenuScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .aspectFill
@@ -298,10 +302,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           //  colorTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(activateColors), userInfo: "a", repeats: true)
         }
         
-        if (lineCount > 4 && stageKey == 2) { // 20 olur
+        if (lineCount > 10 && stageKey == 2) { // 20 olur
             stageTimer!.invalidate()
             endGameScreen()
             
+        }else if(stageKey == 3 && stage3clock == 0){
+            stage3Timer.invalidate()
+            stageTimer.invalidate()
+            endGameScreen()
         }else{
             let ballCount = Int.random(in: 2 ... 5)
             addLine(bCount: ballCount)
