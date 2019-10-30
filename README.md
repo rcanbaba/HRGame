@@ -9,8 +9,8 @@ ________________________________________________________________________________
 - [x] Karakter sağa sola çektiğin zaman gidecek. 
 - [x] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
 - [ ] Karakter ekranın dışına çıkmasın.
-- [ ] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun.
-- [ ] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin.
+- [-] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun. --
+- [-] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin. --
 
 - [x] Arkaplan ayarla.
 - [x] Score vs alanı yukarıya ayarla.
@@ -22,19 +22,19 @@ ________________________________________________________________________________
 
 - [x] Skor label koy çarpışmalara (top renklerine göre) göre skor değişsin.
 
-- [ ] Start scene ayarla.
-- [ ] Game Over scene ayarla.
-- [ ] Main menu scene ayarla,
+- [x] Start scene ayarla.
+- [x] Game Over scene ayarla.
+- [x] Main menu scene ayarla,
 
-- [ ] Renk testi alanı ayarla alta.
-- [ ] Stageler arası sceneleri ayarla.
+- [x] Renk testi alanı ayarla alta.
+- [x] Stageler arası sceneleri ayarla.
 
 - [ ] Tutorial koy başa.
-- [ ] Stage 1: renkli toplar
-- [ ] Stage 2: + renk soruları
-- [ ] Stage 3: + hız
-- [ ] Stage 4: herşeyi koy
-- [ ] Pause/ Play butonu koy.
+- [x] Stage 1: renkli toplar
+- [x] Stage 2: + renk soruları
+- [x] Stage 3: + hız
+- [x] Stage 4: herşeyi koy
+- [x] Pause/ Play butonu koy.
 
 ______________________________________________________________________________________________________________________________
 
@@ -107,31 +107,31 @@ ________________________________________________________________________________
 
 #### Etaplar
 
-- [ ] 1.  İlk 5 etap öğrenme olacak. Hangi topun kaç puan verdiği gösterilecek.
-- [ ] 2.  Renk sorularının ne olduğu anlatılacak.
-- [ ] 3.  5 etaptan sonra oyun başlıyor label ı koy.
-- [ ] 4.  5 etap standart düşme hızı 2-3 toplu, renk soruları gördüğünü soruyor.
-- [ ] 5.  5 etap standart düşme hızı 2-3 toplu, renk soruları içinde yazanı soruyor.
-- [ ] 6.  5 etap topların düşme hızı farklı (az zamanda kararı nasıl değiştiği test ediliyor) renk soruları rastgele bazen gördüğü bazen yazan.
+- [x] 1.  İlk 5 etap öğrenme olacak. Hangi topun kaç puan verdiği gösterilecek.
+- [x] 2.  Renk sorularının ne olduğu anlatılacak.
+- [x] 3.  5 etaptan sonra oyun başlıyor label ı koy.
+- [x] 4.  5 etap standart düşme hızı 2-3 toplu, renk soruları gördüğünü soruyor.
+- [x] 5.  5 etap standart düşme hızı 2-3 toplu, renk soruları içinde yazanı soruyor.
+- [x] 6.  5 etap topların düşme hızı farklı (az zamanda kararı nasıl değiştiği test ediliyor) renk soruları rastgele bazen gördüğü bazen yazan.
 
 #### Renk soruları
 
-- [ ] 1.  Pachinko daki edit ekranı gibi öne gelsin.
-- [ ] 2.  Tasarımı sonraya bırak 2-3 buton koy (label).
+- [x] 1.  Pachinko daki edit ekranı gibi öne gelsin.
+- [x] 2.  Tasarımı sonraya bırak 2-3 buton koy (label).
 
 #### Toplar
 
-- [ ] 1.  Toplar belirli bir sıraya göre düşecek aynı anda 2 ve 3 top düşme senaryosu olsun
-- [ ] 2.  Topların içine şekil yada yazı koy verecekleri özelliklere göre
+- [x] 1.  Toplar belirli bir sıraya göre düşecek aynı anda 2 ve 3 top düşme senaryosu olsun
+- [x] 2.  Topların içine şekil yada yazı koy verecekleri özelliklere göre
 
 #### Skor
 
-- [ ] 1.  Bir label ekle topların collisionuna göre farklı puanlar alacak
-- [ ] 2.  Renk sorularında da doğru verilen cevaplarda puan alınacak
+- [x] 1.  Bir label ekle topların collisionuna göre farklı puanlar alacak
+- [x] 2.  Renk sorularında da doğru verilen cevaplarda puan alınacak
 
 #### Arka Plan
 
-- [ ] 1.  Daha düzgün sade bir şey ekle
+- [x] 1.  Daha düzgün sade bir şey ekle
 
 #### Puanlama [ Yardım iste, Düşünülecek!! ] 
 
@@ -176,16 +176,21 @@ STAGE 1 ->
 STAGE 2 -> 
 hallolacak düşün
 
-STAGE 3 TIMER 
+STAGE 3 TIMER // TAM ÇÖZ 
 [x] didset ile label a ekleyeceğiz scheduled timer bi count ı artıracak her sn de onu yazacağız anlık olarak
 
 LEADERBOARDS
 userdefault a kaydedilecek multi array olarak
 textfield lazım bunun için hepsi birlikte
 
-BİRDEN FAZLA TOP ALMA SORUNU
+BİRDEN FAZLA TOP ALMA SORUNU // ÇÖZĞLECEK BASİT
 bir çarpışma detect edilince Z değerini değiştir. karakterin Z değerini değiştir.
 
 Bir line daki top sayısının randomluğunu da biz bi random generator ile ayarlayalım. yaklaşık olarak bilelim.
 
+MUZİK EKLE bg muziği ve puan durumuna göre farklı sesler eklenmeli.
 
+STAGE 3- timer koymak çok mantıklı olmadı
+orada renk testi sorularını karıştırabiliriz
+kiminde rengi seç kiminde yazıyı seç şeklinde olursa 
+kuralı ezberleyerek de devam edemez.

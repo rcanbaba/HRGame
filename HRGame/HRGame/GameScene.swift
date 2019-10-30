@@ -302,7 +302,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           //  colorTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(activateColors), userInfo: "a", repeats: true)
         }
         
-        if (lineCount > 10 && stageKey == 2) { // 20 olur
+        if (lineCount > 4 && stageKey == 2) { // 20 olur
             stageTimer!.invalidate()
             endGameScreen()
             
@@ -404,6 +404,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //  MARK: ************ AFTER COLLISION ***********
     func collisionBetween(character: SKNode, ball: SKNode) {
         
+       // character.zPosition = 15
         collidedBallName = ball.name!
         //pad.zPosition = 2
         let randomNumber = Int.random(in: 1 ... 10)
@@ -461,7 +462,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 3:
                 return 0
             case 4:
-                return 0
+                return 2
             case 5:
                 return 2
             case 6:
@@ -488,7 +489,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 4:
                 return 0
             case 5:
-                return 0
+                return 3
             case 6:
                 return 3
             case 7:
@@ -516,7 +517,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 5:
                 return 0
             case 6:
-                return 0
+                return 5
             case 7:
                 return 5
             case 8:
@@ -544,7 +545,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 6:
                 return 0
             case 7:
-                return 0
+                return 10
             case 8:
                 return 10
             case 9:
@@ -572,7 +573,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 7:
                 return 0
             case 8:
-                return 0
+                return 15
             case 9:
                 return 15
             case 10:
@@ -600,7 +601,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 8:
                 return 0
             case 9:
-                return 0
+                return 20
             case 10:
                 return 20
             default:
@@ -1113,20 +1114,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func endGameScreen(){
         
-        colorViewTab.size.height = 940
-        colorViewTab.size.width = 680
-        colorViewTab.position = CGPoint(x: 0 , y: -130 )
+        colorViewTab.size.height = 480
+        colorViewTab.size.width = 640
+        colorViewTab.position = CGPoint(x: 0 , y: 0 )
         colorViewTab.blendMode = .alpha
         colorViewTab.zPosition = 30
         
-        colorQuestionLabel.text = "STAGE \(stageKey) COMPLETED \n     SCORE: \(score)"
+        colorQuestionLabel.text = "   STAGE \(stageKey)\nCOMPLETED \n   SCORE: \(score)"
         colorQuestionLabel.fontName = "AvenirNext-Bold"
         colorQuestionLabel.horizontalAlignmentMode = .center
         colorQuestionLabel.fontColor = .systemPink
         colorQuestionLabel.zPosition = 31
         colorQuestionLabel.fontSize = 50.0
-        colorQuestionLabel.position = CGPoint(x: 0 , y: -180 )
+        colorQuestionLabel.position = CGPoint(x: 0 , y: -25 )
+                
+        menuButtonNode.position = CGPoint(x: 0 , y: -90 )
+        menuButtonNode.zPosition = 32
+        pauseStageButtonNode.position = CGPoint(x: -130 , y: -90 )
+        pauseStageButtonNode.zPosition = 32
+        playStageButtonNode.position = CGPoint(x: 130 , y: -90 )
+        playStageButtonNode.zPosition = 32
         
+        character.zPosition = 33
     }
     
     
