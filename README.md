@@ -194,3 +194,18 @@ STAGE 3- timer koymak çok mantıklı olmadı
 orada renk testi sorularını karıştırabiliriz
 kiminde rengi seç kiminde yazıyı seç şeklinde olursa 
 kuralı ezberleyerek de devam edemez.
+
+
+______________________________________________________________________________________________________________________________
+## Bitirme Görüşmesi 
+## 30.10.2019
+
+- Stage 3 düzenlenmesi. Hem renk hem yazı seçimi, seçim süresi gittikçe azalan.
+
+- Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn. Timer görünecek ekranda. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt. Risk alıp kazanamadığında puanında %k düşme. 
+
+- Pause çalışmıyordu, düzelecek. Oyun başlamadan soruyu verip ileri diyince başlayacak. 
+
+- Alttaki topların skor ve risk değerleri gösterilecek. 
+
+- Hipotez – psikoloji açısından nedir?
