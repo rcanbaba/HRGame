@@ -200,12 +200,26 @@ ________________________________________________________________________________
 ## Bitirme Görüşmesi 
 ## 30.10.2019
 
-- Stage 3 düzenlenmesi. Hem renk hem yazı seçimi, seçim süresi gittikçe azalan.
+- Stage 3 düzenlenmesi. Hem renk hem yazı seçimi [ ], seçim süresi gittikçe azalan [ ].
 
-- Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn. Timer görünecek ekranda. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt. Risk alıp kazanamadığında puanında %k düşme. 
+- Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn [ ]. Timer görünecek ekranda [ ]. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt [x]. Risk alıp kazanamadığında puanında %k düşme [ ]. 
 
-- Pause çalışmıyordu, düzelecek. Oyun başlamadan soruyu verip ileri diyince başlayacak. 
+- Pause çalışmıyordu, düzelecek [ ]. Oyun başlamadan soruyu verip ileri diyince başlayacak [x]. 
 
-- Alttaki topların skor ve risk değerleri gösterilecek. 
+- Alttaki topların skor ve risk değerleri gösterilecek [ ]. 
 
-- Hipotez – psikoloji açısından nedir?
+- Hipotez – psikoloji açısından nedir? [ ]
+
+------------   Yapılanlar   -------------
+[x] Karakter topa değince topta yanma animasyonu
+[x] Karakter topa değince karakterde gaz  animasyonu
+[x] Oyun başlamadan önce farklı Scene koy bilgi ver ordan stage başlat.
+
+___________________
+[x][x][x][x][x][x][x][x][x]
+MenuScene ile GameScene arasına yeni bir Scene oluştur.
+Ordaki messagebox içine stage kurallarını vs belirt.
+karakteri de koyabiliriz karakter start a giderse başlat.
+küçük bir şekilde start stage X yazısına çarptığında git. 
+butonu koy karakter üstüne gidince buton çöksün 1 sn sonra da stage başlasın. 
+________________________

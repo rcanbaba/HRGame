@@ -803,6 +803,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 //  MARK: REMOVE GIVEN NODE
     func destroy(ball: SKNode) {
+        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles") {
+            fireParticles.position = ball.position
+            addChild(fireParticles)
+        }
+        if let sparkParticles = SKEmitterNode(fileNamed: "MyParticle") {
+            sparkParticles.position.x = character.position.x - 80.0
+            sparkParticles.position.y = character.position.y
+            addChild(sparkParticles)
+        }
+        
         ball.removeFromParent()
         if(stageKey == 2 || stageKey == 3){
             setColorQuestion(isHidden: true)

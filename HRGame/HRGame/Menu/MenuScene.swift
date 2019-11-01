@@ -62,7 +62,7 @@ class MenuScene: SKScene {
                // let gameScene = GameScene(size: self.size)
                 //self.view?.presentScene(gameScene,transition: transition)
                 
-                if let scene = SKScene(fileNamed: "GameScene") {
+                if let scene = SKScene(fileNamed: "StartScene") {
                     // Set the scale mode to scale to fit the window
                     scene.scaleMode = .aspectFill
                     // Present the scene
@@ -72,7 +72,7 @@ class MenuScene: SKScene {
             }else if(nodesArray.first?.name == "stageButton"){
                 changeStage()
             }else if(nodesArray.first?.name == "exitGameButton"){
-                let scenek = SKScene(fileNamed: "GameScene")
+                let scenek = SKScene(fileNamed: "StartScene")
                 scenek!.camera!.addChild(exitGameButtonNode)
             }
         }
