@@ -55,6 +55,14 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
             print("character failed")
         }
         
+        let move = SKAction.move(to:.init(x: 82, y: -390), duration: 1)
+        let scale = SKAction.scale(by: 2.5, duration: 1.5)
+        let dönme = SKAction.rotate(byAngle: 6.28 , duration: 1)
+        let actions = [dönme, move, scale]
+        let sequence = SKAction.sequence(actions)
+        let anlık = SKAction.group(actions)
+        character.run(anlık)
+        
         character.name = "character"
         //character.physicsBody = SKPhysicsBody( rectangleOf: character.size)
         character.physicsBody?.isDynamic = false

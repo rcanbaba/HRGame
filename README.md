@@ -202,9 +202,9 @@ ________________________________________________________________________________
 
 - Stage 3 düzenlenmesi. Hem renk hem yazı seçimi [ ], seçim süresi gittikçe azalan [ ].
 
-- Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn [ ]. Timer görünecek ekranda [ ]. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt [x]. Risk alıp kazanamadığında puanında %k düşme [ ]. 
+- Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn [-test-]. Timer görünecek ekranda [-test-]. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt [x]. Risk alıp kazanamadığında puanında %k düşme [ ]. 
 
-- Pause çalışmıyordu, düzelecek [-test- ]. Oyun başlamadan soruyu verip ileri diyince başlayacak [x]. 
+- Pause çalışmıyordu, düzelecek [-test-]. Oyun başlamadan soruyu verip ileri diyince başlayacak [x]. 
 
 - Alttaki topların skor ve risk değerleri gösterilecek [ ]. 
 
@@ -229,12 +229,18 @@ Cevap veremezse de -5 puan
 Geri sayım sonucu doğru bilirse bir yeşil olarak puanı bas
 Yanlış bilirse kırmızı olarak eksi puanı yaz
 Cevap veremezse gri olarak 0 yaz
+
+-YAP3
+karakter stage giriş ekranındaki gibi scale olsun top vs aldığında bişeler yapsın 
+
 ______________________________________________________________________
 
 ------------   Yapılanlar   -------------
 [x] Karakter topa değince topta yanma animasyonu
 [x] Karakter topa değince karakterde gaz  animasyonu
 [x] Oyun başlamadan önce farklı Scene koy bilgi ver ordan stage başlat.
+[x] Giriş scene de karakter şekil oldu.
+[x] Stage 2 countdown eklendi top yakala butona tıkla arası
 
 ___________________
 [x][x][x][x][x][x][x][x][x]

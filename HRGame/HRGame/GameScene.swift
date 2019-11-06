@@ -29,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stage3Timer:Timer!
     var buttonTimer:Timer!
     var colorTimer:Timer!
+    var buttonCountDown:Timer!
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
     var lineCount = Int(0)
@@ -70,6 +71,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stage3clock = 30 {
         didSet {
             stage3clockLabel.text = "Timer: \(stage3clock)"
+        }
+    }
+    var colorTestCountDownLabel: SKLabelNode!
+    var colorTestCountDown = 3 {
+        didSet {
+            colorTestCountDownLabel.text = "\(colorTestCountDown)"
         }
     }
     var colorButton1:SKSpriteNode = SKSpriteNode()
@@ -179,7 +186,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: false)
-            stageTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+            
+            colorTestCountDownLabel = SKLabelNode(fontNamed: "Chalkduster")
+          //  colorTestCountDownLabel.text = "GO"
+            colorTestCountDownLabel.fontSize = 150
+            colorTestCountDownLabel.horizontalAlignmentMode = .center
+            colorTestCountDownLabel.position = CGPoint(x: 0, y: 300)
+            addChild(colorTestCountDownLabel)
+            colorTestCountDownLabel.isHidden = true
+            
+            stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
         }else if(stageKey == 3){ // süre geri sayımı
             setColorViewTab(isHidden: false)
             setColorLabels(isHidden: true)
@@ -224,30 +240,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             score = score + 10
                             getPoint = 10
                         }
+                    colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
                     colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel2.text == collBallName){
                             score = score + 10
                             getPoint = 10
                         }
+                    colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
                     colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel3.text == collBallName){
                             score = score + 10
                             getPoint = 10
                         }
+                    colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
                     colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel4.text == collBallName){
                             score = score + 10
                             getPoint = 10
                         }
+                    colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
                     colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel5.text == collBallName){
                             score = score + 10
                             getPoint = 10
                         }
+                    colorTestCountDownLabel.isHidden = true
                 }
                 
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
@@ -260,7 +281,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //stageTimer.invalidate()
             }else if(nodesArray.first?.name == "playStageButton" ){
                 self.scene?.view?.isPaused = false
-               // stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+                
+                if(stageKey == 1){
+                    stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+                }else if(stageKey == 2){
+                    stageTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+                }else if(stageKey == 3){
+                    stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+                    stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
+                }
+                
+                stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+                
             }else if(nodesArray.first?.name == "menuButton" ){//stagelere göre ayır
                 
                 if (stageKey != 0 ){
@@ -819,7 +851,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorLabels(isHidden: false)
             setColorButtons(isHidden: false)
             
-            colorTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(deActivateColors), userInfo: "ada", repeats: true)
+        //    colorTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(deActivateColors), userInfo: "ada", repeats: true)
+            colorTestCountDown = 3
+            colorTestCountDownLabel.isHidden = false
+            buttonCountDown = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(colorTestCountDownFunc), userInfo: "adas", repeats: true)
         }
     }
     
@@ -968,6 +1003,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setColorQuestion(isHidden: false)
         setColorLabels(isHidden: true)
         setColorButtons(isHidden: true)
+    }
+    
+    @objc func colorTestCountDownFunc(){
+        colorTestCountDown = colorTestCountDown - 1
+        if(colorTestCountDown == 0){
+            colorTestCountDownLabel.isHidden = true
+            buttonCountDown.invalidate()
+            setColorQuestion(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+        }
     }
     
     @objc func stage3countDown(){ //count koy ona ulaşınca girmeyi bıraksın
