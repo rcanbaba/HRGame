@@ -204,11 +204,32 @@ ________________________________________________________________________________
 
 - Stage 2 düzenlenmesi. Seçim süresi sabit 3 sn [ ]. Timer görünecek ekranda [ ]. Risk alıp puan kazanamadığında animasyon renk değişimi vb efekt [x]. Risk alıp kazanamadığında puanında %k düşme [ ]. 
 
-- Pause çalışmıyordu, düzelecek [ ]. Oyun başlamadan soruyu verip ileri diyince başlayacak [x]. 
+- Pause çalışmıyordu, düzelecek [-test- ]. Oyun başlamadan soruyu verip ileri diyince başlayacak [x]. 
 
 - Alttaki topların skor ve risk değerleri gösterilecek [ ]. 
 
 - Hipotez – psikoloji açısından nedir? [ ]
+
+______________________________________________________________________
+- Aklıma geldi YAP1 - > Ayşe Hocaya sor.
+CAN: seçim süresi max 3sn -> ne kadar erken seçerse o kadar çok puan alsın
+Doğru:
+1sn de seçer ve doğru bilirse 10 
+2sn de seçer ve doğru bilirse 5
+3sn de seçer ve  doğru bilirse 3
+Yanlış:
+1sn de seçer yanlış yaparsa - 1 yada - 5
+2sn de seçer yanlış yaparsa - 2 yada - 3
+3sn de seçer yanlış yaparsa - 3 yada - 1
+
+-> bu fazla - alma korkusundan hiç cevap vermemeye götürebilir.
+Cevap veremezse de -5 puan
+
+- YAP2
+Geri sayım sonucu doğru bilirse bir yeşil olarak puanı bas
+Yanlış bilirse kırmızı olarak eksi puanı yaz
+Cevap veremezse gri olarak 0 yaz
+______________________________________________________________________
 
 ------------   Yapılanlar   -------------
 [x] Karakter topa değince topta yanma animasyonu
