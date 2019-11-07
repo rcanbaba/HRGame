@@ -50,19 +50,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         didSet {
             if( getPoint == 0){
                 getPointLabel.fontColor = .red
+                getPointLabel.text = "\(getPoint)"
+                let scaleUp2 = SKAction.scale(to: CGSize(width: 280 , height: 243), duration: 0.2)
+                let scaleDown2 = SKAction.scale(to: CGSize(width: 210 , height: 180), duration: 0.2)
+                let actions2 = [scaleDown2, scaleUp2]
+                let sekans2 = SKAction.sequence(actions2)
+                character.run(sekans2)
             }else{
                 getPointLabel.fontColor = .green
+                getPointLabel.text = "+\(getPoint)"
+                let scaleUp1 = SKAction.scale(to: CGSize(width: 300 , height: 300), duration: 0.2)
+                let scaleDown1 = SKAction.scale(to: CGSize(width: 280 , height: 243), duration: 0.2)
+                let actions1 = [scaleUp1, scaleDown1]
+                let anlık1 = SKAction.sequence(actions1)
+                character.run(anlık1)
             }
 
-            getPointLabel.text = "+\(getPoint)"
+            
+            
+            getPointLabel.position = character.position
+            getPointLabel.zPosition = 15
+            
+            
+            let move = SKAction.move(to:.init(x: 50, y: 580), duration: 1)
+            let scaleUp = SKAction.scale(by: 2.0, duration: 0.5)
+            let scaleDown = SKAction.scale(by: 0.5, duration: 0.5)
+            let dönme = SKAction.rotate(byAngle: 6.28 , duration: 1)
+            let actions = [dönme, move, scaleUp, scaleDown]
+            //     let sequence = SKAction.sequence(actions)
+            let anlık = SKAction.group(actions)
+            getPointLabel.run(anlık)
+            
+         //   CGPoint(x: 50, y: 590)
             
             if (getPoint > 5){
-                getPointTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(setGetPointLabelFontSize), userInfo: 1, repeats: true)
-                getPointTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(setGetPointLabelFontSize1), userInfo: 2, repeats: true)
-                getPointTimer2 = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(setGetPointLabelFontSize2), userInfo: 3, repeats: true)
-                getPointTimer3 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(setGetPointLabelFontSize3), userInfo: 4, repeats: true)
+  //              getPointTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(setGetPointLabelFontSize), userInfo: 1, repeats: true)
+  //              getPointTimer1 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(setGetPointLabelFontSize1), userInfo: 2, repeats: true)
+  //              getPointTimer2 = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(setGetPointLabelFontSize2), userInfo: 3, repeats: true)
+  //              getPointTimer3 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(setGetPointLabelFontSize3), userInfo: 4, repeats: true)
             }else{
-                getPointLabel.fontSize = 50
+                
             }
             
         }
@@ -144,7 +171,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         getPointLabel = SKLabelNode(fontNamed: "Chalkduster")
         getPointLabel.fontSize = 60
         getPointLabel.horizontalAlignmentMode = .center
-        getPointLabel.position = CGPoint(x: 50, y: 590)
+        getPointLabel.position = character.position
         getPointLabel.zPosition = 3
         addChild(getPointLabel)
         
@@ -1151,22 +1178,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    @objc func setGetPointLabelFontSize(){ //count koy ona ulaşınca girmeyi bıraksın
-        getPointTimer.invalidate()
-        getPointLabel.fontSize = 80
-    }
-    @objc func setGetPointLabelFontSize1(){ //count koy ona ulaşınca girmeyi bıraksın
-        getPointTimer1.invalidate()
-        getPointLabel.fontSize = 100
-    }
-    @objc func setGetPointLabelFontSize2(){ //count koy ona ulaşınca girmeyi bıraksın
-        getPointTimer2.invalidate()
-        getPointLabel.fontSize = 80
-    }
-    @objc func setGetPointLabelFontSize3(){ //count koy ona ulaşınca girmeyi bıraksın
-        getPointTimer3.invalidate()
-        getPointLabel.fontSize = 50
-    }
+//    @objc func setGetPointLabelFontSize(){ //count koy ona ulaşınca girmeyi bıraksın
+//        getPointTimer.invalidate()
+//        getPointLabel.fontSize = 80
+//    }
+//    @objc func setGetPointLabelFontSize1(){ //count koy ona ulaşınca girmeyi bıraksın
+//        getPointTimer1.invalidate()
+//        getPointLabel.fontSize = 100
+//    }
+//    @objc func setGetPointLabelFontSize2(){ //count koy ona ulaşınca girmeyi bıraksın
+//        getPointTimer2.invalidate()
+//        getPointLabel.fontSize = 80
+//    }
+//    @objc func setGetPointLabelFontSize3(){ //count koy ona ulaşınca girmeyi bıraksın
+//        getPointTimer3.invalidate()
+//        getPointLabel.fontSize = 50
+//    }
     
     func endGameScreen(){
         

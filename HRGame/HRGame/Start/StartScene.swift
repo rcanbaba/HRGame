@@ -59,7 +59,7 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
         let scale = SKAction.scale(by: 2.5, duration: 1.5)
         let dönme = SKAction.rotate(byAngle: 6.28 , duration: 1)
         let actions = [dönme, move, scale]
-        let sequence = SKAction.sequence(actions)
+   //     let sequence = SKAction.sequence(actions)
         let anlık = SKAction.group(actions)
         character.run(anlık)
         
