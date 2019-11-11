@@ -999,7 +999,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          }
     }
     func setColorQuestion(isHidden: Bool){
-        colorQuestionLabel.text = "What is the name of the \n caught ball color?"
+        colorQuestionLabel.text = "What color is\nthe caught ball?"
         colorQuestionLabel.fontName = "AvenirNext-Bold"
         colorQuestionLabel.fontColor = .systemPink
         colorQuestionLabel.fontSize = 40.0

@@ -103,16 +103,24 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
 
         if(userDefaults.integer(forKey: "stageKey") == 0 ){
             stageLabelNode.text = "TUTORIAL"
+            infoLabelNode.fontSize = 48
+            infoLabelNode.verticalAlignmentMode = .center
             infoLabelNode.text = "You will be informed \n about game in \n tutorial stage. \n If you ready swipe \n character to start."
         }else if(userDefaults.integer(forKey: "stageKey") == 1){
             stageLabelNode.text = "STAGE 1"
-            infoLabelNode.text = "In this stage you\nshould capture falling\nballs. Each ball have\ndifferent risk. \nBecareful!"
+            infoLabelNode.fontSize = 48
+            infoLabelNode.verticalAlignmentMode = .center
+            infoLabelNode.text = "In this stage you\nshould catch falling\nballs. Each ball has\ndifferent risk. \nBecareful!"
         }else if(userDefaults.integer(forKey: "stageKey") == 2){
             stageLabelNode.text = "STAGE 2"
-            infoLabelNode.text = "You should capture\nfalling risky balls.\nWhen you captured\ncolor buttons will\nbe appeared at the\nbottom. You should\npush rigth text."
+            infoLabelNode.fontSize = 36
+            infoLabelNode.verticalAlignmentMode = .center
+            infoLabelNode.text = "You should catch falling\nballs. Each ball has\ndifferent risk. Also, there\nis a color question in the\nbottom. When you catch\na ball color buttons will be\nappeared at the bottom.\nYou should push rigth button\naccording to question."
         }else if(userDefaults.integer(forKey: "stageKey") == 3){
             stageLabelNode.text = "STAGE 3"
-            infoLabelNode.text = "You should capture\nballs. When you \ncaptured color buttons\nwill be appeared at\nthe bottom\nYou should pick\ncolor or text.\nYour time is up"
+            infoLabelNode.fontSize = 34
+            infoLabelNode.verticalAlignmentMode = .center
+            infoLabelNode.text = "You should catch falling balls.\nEach ball has different\nrisk. Also, there is a color\nquestion in the bottom.\nWhen you catch a ball\ncolor buttons will be\nappeared at the bottom.\nYou should push rigth button\naccording to question.\nThe Button countdown\nwill be decreased."
         }else{
 
         }
