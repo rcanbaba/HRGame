@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stageKey = Int(0)
     var lineCount = Int(0)
     var collidedBallName: String = ""
+    var stage3QuestionType = Int(0)
     var score = 0{
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -228,14 +229,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: false)
+            
             stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
             stage3clockLabel.text = "CountDown"
             stage3clockLabel.fontSize = 60
             stage3clockLabel.horizontalAlignmentMode = .left
             stage3clockLabel.position = CGPoint(x: 0, y: 480)
             addChild(stage3clockLabel)
-            stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
-            stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
+            
+              colorTestCountDownLabel = SKLabelNode(fontNamed: "Chalkduster")
+            //  colorTestCountDownLabel.text = "GO"
+              colorTestCountDownLabel.fontSize = 150
+              colorTestCountDownLabel.horizontalAlignmentMode = .center
+              colorTestCountDownLabel.position = CGPoint(x: 0, y: 300)
+              addChild(colorTestCountDownLabel)
+              colorTestCountDownLabel.isHidden = true
+            
+           // stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+            stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
 
         }
     }
@@ -246,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         var collBallName: String = ""
-        
+        var collBallColor: UIColor = .black
         let touch = touches.first
         if let location = touch?.location(in: self){
             startTouch = location
@@ -257,9 +268,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }else if(stageKey == 1){ // düz oyun
 
-            }else if(stageKey == 2 || stageKey == 3){ // butonlar lazım
+            }else if(stageKey == 2 || (stageKey == 3 && stage3QuestionType == 0)){ // butonlar lazım
                 
-                collBallName = getCollidedBallName(ball: collidedBallName)
+                collBallName =  getCollidedBallName(ball: collidedBallName)
                 
                 if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
                     colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
@@ -299,9 +310,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
+                                
+            }else if((stageKey == 3 && stage3QuestionType == 1)){
+                
+                collBallColor =  getCollidedBallColor(ball: collidedBallName)
+                
+                if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
+                    colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel1.fontColor == collBallColor){
+                            score = score + 11
+                            getPoint = 11
+                        }
+                    colorTestCountDownLabel.isHidden = true
+                }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
+                    colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel2.fontColor == collBallColor){
+                            score = score + 11
+                            getPoint = 11
+                        }
+                    colorTestCountDownLabel.isHidden = true
+                }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
+                    colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel3.fontColor == collBallColor){
+                            score = score + 11
+                            getPoint = 11
+                        }
+                    colorTestCountDownLabel.isHidden = true
+                }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
+                    colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel4.fontColor == collBallColor){
+                            score = score + 11
+                            getPoint = 11
+                        }
+                    colorTestCountDownLabel.isHidden = true
+                }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
+                    colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+                        if(colorButtonLabel5.fontColor == collBallColor){
+                            score = score + 11
+                            getPoint = 11
+                        }
+                    colorTestCountDownLabel.isHidden = true
+                }
+                
+                buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
+                
                 
                 
             }
+            
             
             if(nodesArray.first?.name == "pauseStageButton" ){ /// düzeltilecek
                 self.scene?.view?.isPaused = true
@@ -314,11 +370,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }else if(stageKey == 2){
                     stageTimer = Timer.scheduledTimer(timeInterval: 4, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
                 }else if(stageKey == 3){
-                    stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
-                    stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
+                    //stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+                    stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
                 }
                 
-                stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+                //stageTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
                 
             }else if(nodesArray.first?.name == "menuButton" ){//stagelere göre ayır
                 
@@ -326,7 +382,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     stageTimer.invalidate()
                 }
                 if (stageKey == 3){
-                    stage3Timer.invalidate()
+                   // stage3Timer.invalidate()
                     stageTimer.invalidate()
                 }
                 
@@ -353,20 +409,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 // MARK: ADD NEW LINE STAGE 2 & 3 BAŞLANGICI
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
         
-        if(stageKey == 2 || stageKey == 3){
+        if(stageKey == 2 ){
             setColorViewTab(isHidden: false)
+            setColorQuestionText()
             setColorQuestion(isHidden: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
           //  colorTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(activateColors), userInfo: "a", repeats: true)
+        }else if(stageKey == 3){
+            setColorViewTab(isHidden: false)
+            setColorQuestionText()
+            setColorQuestion(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
+            
         }
         
+    
         if (lineCount > 4 && stageKey == 2) { // 20 olur
             stageTimer!.invalidate()
             endGameScreen()
             
-        }else if(stageKey == 3 && stage3clock == 0){
-            stage3Timer.invalidate()
+        }else if(stageKey == 3 && lineCount > 9){
+           // stage3Timer.invalidate()
             stageTimer.invalidate()
             endGameScreen()
         }else{
@@ -999,16 +1064,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          }
     }
     func setColorQuestion(isHidden: Bool){
-        colorQuestionLabel.text = "What color is\nthe caught ball?"
-        colorQuestionLabel.fontName = "AvenirNext-Bold"
-        colorQuestionLabel.fontColor = .systemPink
-        colorQuestionLabel.fontSize = 40.0
+        
         if(isHidden == true){
             colorQuestionLabel.isHidden = true
          }else{
             colorQuestionLabel.isHidden = false
          }
     }
+    
+    func setColorQuestionText(){
+        if(stageKey == 2){
+            colorQuestionLabel.text = "What color is\nthe caught ball?"
+        }else if(stageKey == 3){
+            let randNumber = Int.random(in: 0 ... 1)
+            stage3QuestionType = randNumber
+            if(randNumber == 0){
+                colorQuestionLabel.text = "What color is\nthe caught ball?"
+            }else if(randNumber == 1){
+                colorQuestionLabel.text = "Match the caught ball\ncolor and the button color!"
+            }
+        }
+        
+        colorQuestionLabel.fontName = "AvenirNext-Bold"
+        colorQuestionLabel.fontColor = .systemPink
+        colorQuestionLabel.fontSize = 40.0
+    }
+    
     func setColorViewTab(isHidden: Bool){
 
         if(isHidden == true){
@@ -1047,7 +1128,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.stage3clock = self.stage3clock - 1
         if(stage3clock == 0){
             print("times up")
-            stage3Timer.invalidate()
+            //stage3Timer.invalidate()
         }
     }
     
@@ -1119,8 +1200,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         colorButtonLabel5.fontColor = fontColorArry[4]
         colorButtonLabel5.fontName = "AvenirNext-Bold"
         
-        
-        
     }
     
     
@@ -1175,6 +1254,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         default:
             print("Wrong Name in collidedBall")
             return "ERROR"
+        }
+    }
+    
+    func getCollidedBallColor(ball: String) -> UIColor{
+        switch ball {
+        case "ballRed":
+            return .red
+        case "ballBlue":
+            return .blue
+        case "ballCyan":
+            return .cyan
+        case "ballGreen":
+            return .green
+        case "ballGrey":
+            return .gray
+        case "ballPurple":
+            return .purple
+        case "ballYellow":
+            return .yellow
+        default:
+            print("Wrong Name in collidedBall")
+            return .black
         }
     }
     
