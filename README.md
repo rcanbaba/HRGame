@@ -249,4 +249,37 @@ Ordaki messagebox içine stage kurallarını vs belirt.
 karakteri de koyabiliriz karakter start a giderse başlat.
 küçük bir şekilde start stage X yazısına çarptığında git. 
 butonu koy karakter üstüne gidince buton çöksün 1 sn sonra da stage başlasın. 
-________________________
+________________________________________________________________________________________________
+
+## Bitirme Görüşmesi 
+## 12.11.2019
+
+[ ] Stage giriş ekranlarındaki metinler ve soru metinleri düzeltilecek.
+[ ] Soru yeni toplar düşmeye başladığında gösterilecek. Seçimden sonra kapalı kalacak.
+
+[ ] Stage değişiklikleri:
+[ ] Stage 2: 
+[ ] metin eşleme soruları.
+[ ] Renk Testi: yanlış cevaba ve boşa ceza yok.
+
+[ ] Stage 3: 
+[ ] hem renk hem metin eşleme soruları.
+[ ] Renk Testi: yanlış cevaba ve boşa ceza yok.
+
+[ ] Stage 4: 
+[ ] hem renk hem metin eşleme soruları.
+[ ] Renk Testi: yanlış cevaba ve boşa cezalar başlayacak.
+
+[ ] Stage Tasarımları:
+[ ] Risk değerleri ve puanlar en yukarda olacak.
+[ ] Remaining ball sayısını yaz.
+
+[ ] Verileri Tut:
+[ ] Düşen top seti ve yaptığı seçimi aldığı puanı
+[ ] Buton seçimini kaç saniyede yaptığını
+
+[ ] Karakter aynı anda 2 top almayacak.
+
+Yetişirse:
+[ ] Girişte kullanıcı adı tut.
+[ ] Leaderboards gibi bir şey yap.

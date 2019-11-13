@@ -29,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stage3Timer:Timer!
     var buttonTimer:Timer!
     var colorTimer:Timer!
+    var startCountDownTimer: Timer!
     var buttonCountDown:Timer!
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
@@ -49,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var getPointLabel: SKLabelNode!
     var getPoint = 0 {
         didSet {
-            if( getPoint == 0){
+            if( getPoint < 0){
                 getPointLabel.fontColor = .red
                 getPointLabel.text = "\(getPoint)"
                 let scaleUp2 = SKAction.scale(to: CGSize(width: 280 , height: 243), duration: 0.2)
@@ -67,8 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 character.run(anlık1)
             }
 
-            
-            
+                    
             getPointLabel.position = character.position
             getPointLabel.zPosition = 15
             
@@ -96,9 +96,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     var stage3clockLabel: SKLabelNode!
-    var stage3clock = 30 {
+    var stage3clock = 4 {
         didSet {
-            stage3clockLabel.text = "Timer: \(stage3clock)"
+            stage3clockLabel.fontSize = 200
+            stage3clockLabel.horizontalAlignmentMode = .center
+            stage3clockLabel.text = "\(stage3clock)"
+            stage3clockLabel.position = CGPoint(x: 0, y: 300)
+            if(stage3clock == -1){
+                stage3clockLabel.text = "GO"
+                stage3clockLabel.position = CGPoint(x: -30, y: 300)
+            }
+            if(stage3clock == -2){
+                stage3clockLabel.text = ""
+            }
+            
+            let scaleUp = SKAction.scale(by: 2.0, duration: 0.7)
+            let scaleDown = SKAction.scale(by: 0.5, duration: 0.1)
+            let actions = [scaleUp, scaleDown]
+            //     let sequence = SKAction.sequence(actions)
+            let anlık = SKAction.group(actions)
+            stage3clockLabel.run(anlık)
+            
         }
     }
     var colorTestCountDownLabel: SKLabelNode!
@@ -120,6 +138,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorQuestionLabel:SKLabelNode = SKLabelNode()
     var colorViewTab:SKSpriteNode = SKSpriteNode()
     
+    var riskViewBallRed:SKSpriteNode = SKSpriteNode()
+    var riskViewBallPurple:SKSpriteNode = SKSpriteNode()
+    var riskViewBallGreen:SKSpriteNode = SKSpriteNode()
+    var riskViewBallYellow:SKSpriteNode = SKSpriteNode()
+    var riskViewBallBlue:SKSpriteNode = SKSpriteNode()
+    var riskViewBallCyan:SKSpriteNode = SKSpriteNode()
+    var riskViewBallGrey:SKSpriteNode = SKSpriteNode()
+    
+    
     override func didMove(to view: SKView) {
         lineCount = 0
         
@@ -127,6 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         stageKey = userDefaults.integer(forKey: "stageKey")
         
         linkButton()
+        linkRiskyBallsView()
         
         pauseStageButtonNode = (self.childNode(withName: "pauseStageButton") as! SKSpriteNode)
         playStageButtonNode = (self.childNode(withName: "playStageButton") as! SKSpriteNode)
@@ -176,6 +204,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         getPointLabel.zPosition = 3
         addChild(getPointLabel)
         
+        stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
+        stage3clockLabel.text = "Ready!"
+        stage3clockLabel.fontSize = 160
+        stage3clockLabel.horizontalAlignmentMode = .left
+        stage3clockLabel.position = CGPoint(x: -250, y: 300)
+        addChild(stage3clockLabel)
+        
         
         //physicsBody = SKPhysicsBody (edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -204,10 +239,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorQuestion(isHidden: true)
             nextRow(row: stageCount+1)
         }else if(stageKey == 1){ // düz oyun top yakala
-            setColorViewTab(isHidden: true)
+            setColorViewTab(isHidden: false)
+            setRiskyBallsView(hide: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
-            setColorQuestion(isHidden: true)
+            setColorQuestion(isHidden: false)
+            stage3clockLabel.text = ""
             stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
         }else if(stageKey == 2){ // renk soruları gelecek
             setColorViewTab(isHidden: false)
@@ -223,19 +260,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(colorTestCountDownLabel)
             colorTestCountDownLabel.isHidden = true
             
+            startCountDownTimer = Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(startCountDown), userInfo: nil, repeats: true)
             stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
+            
         }else if(stageKey == 3){ // süre geri sayımı
             setColorViewTab(isHidden: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: false)
-            
-            stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
-            stage3clockLabel.text = "CountDown"
-            stage3clockLabel.fontSize = 60
-            stage3clockLabel.horizontalAlignmentMode = .left
-            stage3clockLabel.position = CGPoint(x: 0, y: 480)
-            addChild(stage3clockLabel)
             
               colorTestCountDownLabel = SKLabelNode(fontNamed: "Chalkduster")
             //  colorTestCountDownLabel.text = "GO"
@@ -246,6 +278,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
               colorTestCountDownLabel.isHidden = true
             
            // stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
+            startCountDownTimer = Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(startCountDown), userInfo: nil, repeats: true)
             stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
 
         }
@@ -434,6 +467,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // stage3Timer.invalidate()
             stageTimer.invalidate()
             endGameScreen()
+        }else if(stageKey == 1 && lineCount > 19){
+           // stage3Timer.invalidate()
+            stageTimer.invalidate()
+            endGameScreen()
         }else{
             let ballCount = Int.random(in: 2 ... 5)
             addLine(bCount: ballCount)
@@ -580,11 +617,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballCyan":
             switch randomNo {
             case 1:
-                return 0
+                return -1
             case 2:
-                return 0
+                return 2
             case 3:
-                return 0
+                return 2
             case 4:
                 return 2
             case 5:
@@ -605,25 +642,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballBlue":
             switch randomNo {
             case 1:
-                return 0
+                return -2
             case 2:
-                return 0
+                return -2
             case 3:
-                return 0
+                return 4
             case 4:
-                return 0
+                return 4
             case 5:
-                return 3
+                return 4
             case 6:
-                return 3
+                return 4
             case 7:
-                return 3
+                return 4
             case 8:
-                return 3
+                return 4
             case 9:
-                return 3
+                return 4
             case 10:
-                return 3
+                return 4
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -631,25 +668,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballYellow":
             switch randomNo {
             case 1:
-                return 0
+                return -4
             case 2:
-                return 0
+                return -4
             case 3:
-                return 0
+                return -4
             case 4:
-                return 0
+                return -4
             case 5:
-                return 0
+                return 8
             case 6:
-                return 5
+                return 8
             case 7:
-                return 5
+                return 8
             case 8:
-                return 5
+                return 8
             case 9:
-                return 5
+                return 8
             case 10:
-                return 5
+                return 8
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -657,25 +694,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballGreen":
             switch randomNo {
             case 1:
-                return 0
+                return -6
             case 2:
-                return 0
+                return -6
             case 3:
-                return 0
+                return -6
             case 4:
-                return 0
+                return -6
             case 5:
-                return 0
+                return -6
             case 6:
-                return 0
+                return 12
             case 7:
-                return 10
+                return 12
             case 8:
-                return 10
+                return 12
             case 9:
-                return 10
+                return 12
             case 10:
-                return 10
+                return 12
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -683,25 +720,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballPurple":
             switch randomNo {
             case 1:
-                return 0
+                return -8
             case 2:
-                return 0
+                return -8
             case 3:
-                return 0
+                return -8
             case 4:
-                return 0
+                return -8
             case 5:
-                return 0
+                return -8
             case 6:
-                return 0
+                return -8
             case 7:
-                return 0
+                return 16
             case 8:
-                return 15
+                return 16
             case 9:
-                return 15
+                return 16
             case 10:
-                return 15
+                return 16
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -709,21 +746,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballRed":
             switch randomNo {
             case 1:
-                return 0
+                return -10
             case 2:
-                return 0
+                return -10
             case 3:
-                return 0
+                return -10
             case 4:
-                return 0
+                return -10
             case 5:
-                return 0
+                return -10
             case 6:
-                return 0
+                return -10
             case 7:
-                return 0
+                return -10
             case 8:
-                return 0
+                return 20
             case 9:
                 return 20
             case 10:
@@ -1020,6 +1057,73 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //colorButtonLabel1
     }
     
+    
+    func setRiskyBallsView(hide: Bool){
+        if(hide == false){
+            riskViewBallGrey.zPosition = 11
+            riskViewBallCyan.zPosition = 11
+            riskViewBallBlue.zPosition = 11
+            riskViewBallYellow.zPosition = 11
+            riskViewBallGreen.zPosition = 11
+            riskViewBallPurple.zPosition = 11
+            riskViewBallRed.zPosition = 11
+        }else{
+            riskViewBallGrey.zPosition = 9
+            riskViewBallCyan.zPosition = 9
+            riskViewBallBlue.zPosition = 9
+            riskViewBallYellow.zPosition = 9
+            riskViewBallGreen.zPosition = 9
+            riskViewBallPurple.zPosition = 9
+            riskViewBallRed.zPosition = 9
+            }
+        colorQuestionLabel.position = CGPoint(x: 0, y: -540)
+        colorQuestionLabel.verticalAlignmentMode = .center
+        colorQuestionLabel.text = "%90  %80  %70  %60  %50  %40  %30\n\n\n +2     +4      +8     +10    +12   +15   +20"
+
+        colorQuestionLabel.fontName = "AvenirNext-Bold"
+        colorQuestionLabel.fontColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        colorQuestionLabel.fontSize = 35.0
+
+    }
+    
+    func linkRiskyBallsView(){
+        
+        if let someNode:SKSpriteNode = self.childNode(withName: "grayBallRisk") as? SKSpriteNode{
+            riskViewBallGrey = someNode
+            print("grayBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "cyanBallRisk") as? SKSpriteNode{
+            riskViewBallCyan = someNode
+            print("cyanBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "blueBallRisk") as? SKSpriteNode{
+            riskViewBallBlue = someNode
+            print("blueBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "yellowBallRisk") as? SKSpriteNode{
+            riskViewBallYellow = someNode
+            print("yellowBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "greenBallRisk") as? SKSpriteNode{
+            riskViewBallGreen = someNode
+            print("greenBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "purpleBallRisk") as? SKSpriteNode{
+            riskViewBallPurple = someNode
+            print("purpleBallRisk linked")
+        }
+        if let someNode:SKSpriteNode = self.childNode(withName: "redBallRisk") as? SKSpriteNode{
+            riskViewBallRed = someNode
+            print("redBallRisk linked")
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
      @objc func buttonReloader(){
         buttonTimer!.invalidate()
         colorButton1.texture = SKTexture(imageNamed: "colorBtn")
@@ -1124,11 +1228,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    @objc func stage3countDown(){ //count koy ona ulaşınca girmeyi bıraksın
+    @objc func startCountDown(){ //count koy ona ulaşınca girmeyi bıraksın
         self.stage3clock = self.stage3clock - 1
-        if(stage3clock == 0){
+        if(stage3clock == -2){
             print("times up")
-            //stage3Timer.invalidate()
+            startCountDownTimer.invalidate()
         }
     }
     
