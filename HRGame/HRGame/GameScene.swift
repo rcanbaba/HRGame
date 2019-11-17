@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode!
     var stageKey = Int(0)
     var lineCount = Int(0)
+    var remainingLineCount = Int(20)
     var collidedBallName: String = ""
     var stage3QuestionType = Int(0)
     var score = 0{
@@ -44,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var stageLabel: SKLabelNode!
     var stageCount = 0{
         didSet {
-            stageLabel.text = "Stage: \(stageCount)"
+            stageLabel.text = "Remaining: \(remainingLineCount)"
         }
     }
     var getPointLabel: SKLabelNode!
@@ -70,10 +71,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
                     
             getPointLabel.position = character.position
-            getPointLabel.zPosition = 15
+            getPointLabel.zPosition = 35
             
-            
-            let move = SKAction.move(to:.init(x: 50, y: 580), duration: 1)
+            let move = SKAction.move(to:.init(x: 41, y: 580), duration: 1)
             let scaleUp = SKAction.scale(by: 2.0, duration: 0.5)
             let scaleDown = SKAction.scale(by: 0.5, duration: 0.5)
             let dönme = SKAction.rotate(byAngle: 6.28 , duration: 1)
@@ -146,10 +146,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var riskViewBallCyan:SKSpriteNode = SKSpriteNode()
     var riskViewBallGrey:SKSpriteNode = SKSpriteNode()
     
-    
+// MARK: VIEWDIDLOAD
     override func didMove(to view: SKView) {
         lineCount = 0
-        
+        remainingLineCount = 20
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         stageKey = userDefaults.integer(forKey: "stageKey")
         
@@ -173,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         dollar.position = CGPoint(x: -180, y: 600)
         //background.blendMode = .replace
         dollar.zPosition = 1
-        addChild(dollar)
+    //    addChild(dollar)
         
         let star = SKSpriteNode(imageNamed: "star")
         star.size.height = star.size.height / 2.0
@@ -181,34 +181,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         star.position = CGPoint(x: 180, y:600 )
         //background.blendMode = .replace
         star.zPosition = 1
-        addChild(star)
+     //   addChild(star)
         
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel = SKLabelNode(fontNamed: "Phosphate-inline")
         scoreLabel.text = "Score: 0"
+        scoreLabel.fontColor = #colorLiteral(red: 0.1504201059, green: 0.3853055239, blue: 0.5494609796, alpha: 1)
+        scoreLabel.fontSize = 44
         scoreLabel.horizontalAlignmentMode = .left
-        scoreLabel.position = CGPoint(x: 135, y: 590)
-        scoreLabel.zPosition = 2
+        scoreLabel.position = CGPoint(x: 130, y: 615)
+        scoreLabel.zPosition = 20
         addChild(scoreLabel)
         
-        stageLabel = SKLabelNode(fontNamed: "Chalkduster")
-        stageLabel.text = "Stage: 0"
+        stageLabel = SKLabelNode(fontNamed: "Phosphate-inline")
+        stageLabel.text = "Remaining: 20"
+        stageLabel.fontColor = #colorLiteral(red: 0.1504201059, green: 0.3853055239, blue: 0.5494609796, alpha: 1)
+        stageLabel.fontSize = 44
         stageLabel.horizontalAlignmentMode = .left
-        stageLabel.position = CGPoint(x: -255, y: 590)
-        stageLabel.zPosition = 2
+        stageLabel.position = CGPoint(x: -330, y: 615)
+        stageLabel.zPosition = 20
         addChild(stageLabel)
         
-        getPointLabel = SKLabelNode(fontNamed: "Chalkduster")
+        getPointLabel = SKLabelNode(fontNamed: "Phosphate-inline")
         getPointLabel.fontSize = 60
         getPointLabel.horizontalAlignmentMode = .center
         getPointLabel.position = character.position
-        getPointLabel.zPosition = 3
+        getPointLabel.zPosition = 20
         addChild(getPointLabel)
         
-        stage3clockLabel = SKLabelNode(fontNamed: "Chalkduster")
+        stage3clockLabel = SKLabelNode(fontNamed: "Phosphate-inline")
         stage3clockLabel.text = "Ready!"
         stage3clockLabel.fontSize = 160
         stage3clockLabel.horizontalAlignmentMode = .left
         stage3clockLabel.position = CGPoint(x: -250, y: 300)
+        stage3clockLabel.zPosition = 20
         addChild(stage3clockLabel)
         
         
@@ -240,7 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             nextRow(row: stageCount+1)
         }else if(stageKey == 1){ // düz oyun top yakala
             setColorViewTab(isHidden: false)
-            setRiskyBallsView(hide: false)
+         //   setRiskyBallsView(hide: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: false)
@@ -283,9 +288,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         }
     }
-//  MARK: STAGE leri yukarda ayarla ---------------
     
-//  MARK: Touches Catch //stagelere göre ayrılacak
+//  MARK: Touches Began
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -476,7 +480,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addLine(bCount: ballCount)
             lineCount = lineCount + 1
         }
-        
+        remainingLineCount = remainingLineCount - 1
     }
     
 //  MARK: Set Lines ******************
@@ -544,13 +548,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        
-        
     }
-    
 
     
-//  MARK: Eski yöntemler -----------------
+//  MARK: Static Line add
     func addBall (at position: CGPoint, name: String, size: CGSize) {
         let ball = SKSpriteNode(imageNamed: name)
         ball.name = name
@@ -562,7 +563,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(ball)
     }
     
-//  MARK: ************ AFTER COLLISION ***********
+//  MARK: AFTER COLLISION
     func collisionBetween(character: SKNode, ball: SKNode) {
         
        // character.zPosition = 15
@@ -608,6 +609,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // MARK: Score CallBack
     
     func scoreCalculate(ballName: String, randomNo: Int) -> Int {
         
@@ -777,7 +779,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
         
     
-//  MARK: Eski Yöntemler
+//  MARK: Static Lane Genarator
+    
     func nextRow(row: Int){
         if (row == 1){
             physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
@@ -1057,6 +1060,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //colorButtonLabel1
     }
     
+// MARK: Risky Ball View
     
     func setRiskyBallsView(hide: Bool){
         if(hide == false){
@@ -1076,16 +1080,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             riskViewBallPurple.zPosition = 9
             riskViewBallRed.zPosition = 9
             }
-        colorQuestionLabel.position = CGPoint(x: 0, y: -540)
-        colorQuestionLabel.verticalAlignmentMode = .center
-        colorQuestionLabel.text = "%90  %80  %70  %60  %50  %40  %30\n\n\n +2     +4      +8     +10    +12   +15   +20"
-
-        colorQuestionLabel.fontName = "AvenirNext-Bold"
-        colorQuestionLabel.fontColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
-        colorQuestionLabel.fontSize = 35.0
+//        colorQuestionLabel.position = CGPoint(x: 0, y: -540)
+//        colorQuestionLabel.verticalAlignmentMode = .center
+//        colorQuestionLabel.text = "%90  %80  %70  %60  %50  %40  %30\n\n\n +2     +4      +8     +10    +12   +15   +20"
+//
+//        colorQuestionLabel.fontName = "AvenirNext-Bold"
+//        colorQuestionLabel.fontColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+//        colorQuestionLabel.fontSize = 35.0
 
     }
-    
+ // MARK: Link Risky Balls
     func linkRiskyBallsView(){
         
         if let someNode:SKSpriteNode = self.childNode(withName: "grayBallRisk") as? SKSpriteNode{
@@ -1236,6 +1240,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+ // MARK: Arrange Button Labels
+    
 // balls = ["ballRed","ballBlue","ballCyan","ballGreen","ballGrey","ballPurple","ballYellow"]
     func arrangeButtonLabels(colorArr: [Int]){
         
@@ -1306,6 +1312,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+// MARK: Random Array Generator Without Duplication
     
     func randomArrayGenaratorWithoutDuplicates(each: Int) -> [Int]{
         
@@ -1338,6 +1345,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+// MARK: Get Collided Ball Properties
     
     func getCollidedBallName(ball: String) -> String{
         switch ball {
@@ -1399,6 +1407,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        getPointTimer3.invalidate()
 //        getPointLabel.fontSize = 50
 //    }
+    
+// MARK: End Game Screen
     
     func endGameScreen(){
         

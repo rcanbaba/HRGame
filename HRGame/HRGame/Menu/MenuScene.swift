@@ -45,6 +45,8 @@ class MenuScene: SKScene {
             stageLabelNode.text = "Stage 2"
         }else if(userDefaults.integer(forKey: "stageKey") == 3){
             stageLabelNode.text = "Stage 3"
+        }else if(userDefaults.integer(forKey: "stageKey") == 4){
+            stageLabelNode.text = "Stage 4"
         }else{
             
         }
@@ -93,6 +95,9 @@ class MenuScene: SKScene {
             stageLabelNode.text = "Stage 3"
             userDefaults.set(3 , forKey: "stageKey")
         }else if(stageLabelNode.text == "Stage 3"){
+            stageLabelNode.text = "Stage 4"
+            userDefaults.set(4 , forKey: "stageKey")
+        }else if(stageLabelNode.text == "Stage 4"){
             stageLabelNode.text = "Tutorial"
             userDefaults.set(0 , forKey: "stageKey")
         }else{

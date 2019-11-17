@@ -55,7 +55,7 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
             print("character failed")
         }
         
-        let move = SKAction.move(to:.init(x: 82, y: -390), duration: 1)
+        let move = SKAction.move(to:.init(x: 82, y: -500), duration: 1)
         let scale = SKAction.scale(by: 2.5, duration: 1.5)
         let dönme = SKAction.rotate(byAngle: 6.28 , duration: 1)
         let actions = [dönme, move, scale]
@@ -103,24 +103,30 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
 
         if(userDefaults.integer(forKey: "stageKey") == 0 ){
             stageLabelNode.text = "TUTORIAL"
-            infoLabelNode.fontSize = 48
+            infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
             infoLabelNode.text = "You will be informed \n about game in \n tutorial stage. \n If you ready swipe \n character to start."
         }else if(userDefaults.integer(forKey: "stageKey") == 1){
             stageLabelNode.text = "STAGE 1"
-            infoLabelNode.fontSize = 48
+            infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "In this stage you\nshould catch falling\nballs. Each ball has\ndifferent risk. \nBecareful!"
+            infoLabelNode.text = "At this stage you should catch falling balls. Each ball has different risks. The risk rate is above the balls and the score is below the balls. The penalty is half of the score. Becareful! If you are ready, swipe the character to the start button."
+            
         }else if(userDefaults.integer(forKey: "stageKey") == 2){
             stageLabelNode.text = "STAGE 2"
-            infoLabelNode.fontSize = 36
+            infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "You should catch falling\nballs. Each ball has\ndifferent risk. Also, there\nis a color question in the\nbottom. When you catch\na ball color buttons will be\nappeared at the bottom.\nYou should push rigth button\naccording to question."
+            infoLabelNode.text = "At this stage, there is an additional color matching question. When you catch a ball, colored buttons will appear at the bottom. You should match the ball color with the color name. Keep in mind the button countdown is 3 seconds."
         }else if(userDefaults.integer(forKey: "stageKey") == 3){
             stageLabelNode.text = "STAGE 3"
             infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "You should catch falling balls.\nEach ball has different\nrisk. Also, there is a color\nquestion in the bottom.\nWhen you catch a ball\ncolor buttons will be\nappeared at the bottom.\nYou should push rigth button\naccording to question.\nThe Button countdown\nwill be decreased."
+            infoLabelNode.text = "At this stage,  there are two different color matching question.  According to questions you should match the ball color with the color name or text color. Keep in mind the button countdown is 3 seconds."
+        }else if(userDefaults.integer(forKey: "stageKey") == 4){
+            stageLabelNode.text = "STAGE 4"
+            infoLabelNode.fontSize = 34
+            infoLabelNode.verticalAlignmentMode = .center
+            infoLabelNode.text = "At this stage,  if you make a wrong color match you will get 5 point penalty.  If you don’t choose any button you will get same penalty 5 point. Keep in mind the button countdown is 3 seconds."
         }else{
 
         }
@@ -130,7 +136,7 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
-            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -405), duration: 0.1))
+            character.run(SKAction.move(to: CGPoint(x:  characterPosition.x + location.x - startTouch.x, y: -505), duration: 0.1))
         }
         
         if(character.position.x - 70 > 120 && isClick == false){
