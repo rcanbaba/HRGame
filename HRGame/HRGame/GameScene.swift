@@ -222,9 +222,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let somePlayer:SKSpriteNode = self.childNode(withName: "player") as? SKSpriteNode{
             character = somePlayer
-            print("that worked")
+            print("player worked")
         }else{
-            print("that failed")
+            print("player failed")
         }
         character.name = "character"
         //character.physicsBody = SKPhysicsBody( rectangleOf: character.size)
@@ -312,36 +312,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
                     colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel1.text == collBallName){
-                            score = score + 10
-                            getPoint = 10
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
                     colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel2.text == collBallName){
-                            score = score + 10
-                            getPoint = 10
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
                     colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel3.text == collBallName){
-                            score = score + 10
-                            getPoint = 10
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
                     colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel4.text == collBallName){
-                            score = score + 10
-                            getPoint = 10
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
                     colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel5.text == collBallName){
-                            score = score + 10
-                            getPoint = 10
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }
@@ -445,7 +445,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 // MARK: ADD NEW LINE STAGE 2 & 3 BAŞLANGICI
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
-        
+        //character.zPosition = 50
+        physicsWorld.contactDelegate = self
         if(stageKey == 2 ){
             setColorViewTab(isHidden: false)
             setColorQuestionText()
@@ -527,6 +528,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball.name = name
         ball.size = CGSize(width: 90, height: 90)
         ball.position = position
+        ball.zPosition = 0
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
         ball.physicsBody?.restitution = 0.4
         ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
@@ -565,8 +567,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 //  MARK: AFTER COLLISION
     func collisionBetween(character: SKNode, ball: SKNode) {
-        
-       // character.zPosition = 15
+        physicsWorld.contactDelegate = nil
+        //character.zPosition = 1
         collidedBallName = ball.name!
         //pad.zPosition = 2
         let randomNumber = Int.random(in: 1 ... 10)
@@ -615,11 +617,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         switch ballName {
         case "ballGrey":
-            return 1
-        case "ballCyan":
             switch randomNo {
             case 1:
-                return -1
+                return 2
             case 2:
                 return 2
             case 3:
@@ -627,7 +627,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 4:
                 return 2
             case 5:
-                return 2
+                return -1
             case 6:
                 return 2
             case 7:
@@ -641,28 +641,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             default:
                 print("farklı bir şey çarptı!!!")
             }
+        case "ballCyan":
+            switch randomNo {
+            case 1:
+                return -3
+            case 2:
+                return 6
+            case 3:
+                return 6
+            case 4:
+                return 6
+            case 5:
+                return 6
+            case 6:
+                return -3
+            case 7:
+                return 6
+            case 8:
+                return 6
+            case 9:
+                return 6
+            case 10:
+                return 6
+            default:
+                print("farklı bir şey çarptı!!!")
+            }
+
         case "ballBlue":
             switch randomNo {
             case 1:
-                return -2
+                return 10
             case 2:
-                return -2
+                return -5
             case 3:
-                return 4
+                return 10
             case 4:
-                return 4
+                return -5
             case 5:
-                return 4
+                return 10
             case 6:
-                return 4
+                return -5
             case 7:
-                return 4
+                return 10
             case 8:
-                return 4
+                return 10
             case 9:
-                return 4
+                return 10
             case 10:
-                return 4
+                return 10
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -670,25 +696,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballYellow":
             switch randomNo {
             case 1:
-                return -4
+                return -7
             case 2:
-                return -4
+                return 14
             case 3:
-                return -4
+                return -7
             case 4:
-                return -4
+                return 14
             case 5:
-                return 8
+                return 14
             case 6:
-                return 8
+                return -7
             case 7:
-                return 8
+                return 14
             case 8:
-                return 8
+                return -7
             case 9:
-                return 8
+                return 14
             case 10:
-                return 8
+                return 14
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -696,25 +722,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballGreen":
             switch randomNo {
             case 1:
-                return -6
+                return -9
             case 2:
-                return -6
+                return 18
             case 3:
-                return -6
+                return -9
             case 4:
-                return -6
+                return 18
             case 5:
-                return -6
+                return -9
             case 6:
-                return 12
+                return 18
             case 7:
-                return 12
+                return -9
             case 8:
-                return 12
+                return 18
             case 9:
-                return 12
+                return -9
             case 10:
-                return 12
+                return 18
             default:
                 print("farklı bir şey çarptı!!!")
             }
@@ -722,60 +748,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case "ballPurple":
             switch randomNo {
             case 1:
-                return -8
+                return -11
             case 2:
-                return -8
+                return 22
             case 3:
-                return -8
+                return -11
             case 4:
-                return -8
+                return 22
             case 5:
-                return -8
+                return -11
             case 6:
-                return -8
+                return 22
             case 7:
-                return 16
+                return -11
             case 8:
-                return 16
+                return -11
             case 9:
-                return 16
+                return -11
             case 10:
-                return 16
+                return 22
             default:
                 print("farklı bir şey çarptı!!!")
             }
-
         case "ballRed":
             switch randomNo {
             case 1:
-                return -10
+                return 26
             case 2:
-                return -10
+                return -13
             case 3:
-                return -10
+                return -13
             case 4:
-                return -10
+                return 26
             case 5:
-                return -10
+                return -13
             case 6:
-                return -10
+                return -13
             case 7:
-                return -10
+                return -13
             case 8:
-                return 20
+                return 26
             case 9:
-                return 20
+                return -13
             case 10:
-                return 20
+                return -13
             default:
                 print("farklı bir şey çarptı!!!")
             }
         default:
             print("farklı bir şey çarptı!!!")
         }
-        
         return 0
-        
     }
         
     

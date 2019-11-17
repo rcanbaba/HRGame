@@ -254,50 +254,53 @@ ________________________________________________________________________________
 ## Bitirme Görüşmesi 
 ## 12.11.2019
 
-[x] Stage giriş ekranlarındaki metinler ve soru metinleri düzeltilecek.
+- [x] Stage giriş ekranlarındaki metinler ve soru metinleri düzeltilecek.
 
-[ ] Soru yeni toplar düşmeye başladığında gösterilecek. Seçimden sonra kapalı kalacak.
+- [ ] Soru yeni toplar düşmeye başladığında gösterilecek. Seçimden sonra kapalı kalacak.
 
 
-[ ] Stage değişiklikleri:
+- [ ] Stage değişiklikleri:
 
-[ ] Stage 2: 
+- [x] Stage 2: 
 
-[x] Metin eşleme soruları.
+- [x] Metin eşleme soruları.
+- [x] Renk Testi: yanlış cevaba ve boşa ceza yok. 
+- [x] Doğru cevap süresine göre fazla puan ver.
 
-[ ] Renk Testi: yanlış cevaba ve boşa ceza yok.
+- [x] Stage 3: 
 
-[ ] Stage 3: 
+- [x] hem renk hem metin eşleme soruları.
+
+- [x] Renk Testi: yanlış cevaba ve boşa ceza yok.
+- [x] Doğru cevap süresine göre fazla puan ver.
+
+- [ ] Stage 4: ( Yeni Eklenecek )
 
 [x] hem renk hem metin eşleme soruları.
 
-[ ] Renk Testi: yanlış cevaba ve boşa ceza yok.
+- [ ] Renk Testi: yanlış cevaba ve boşa cezalar başlayacak.
+- [x] Doğru cevap süresine göre fazla puan ver.
 
-[ ] Stage 4: 
-
-[x] hem renk hem metin eşleme soruları.
-
-[ ] Renk Testi: yanlış cevaba ve boşa cezalar başlayacak.
-
-
-[ ] Stage Tasarımları:
+- [ ] Stage Tasarımları:
 
 [x] Risk değerleri ve puanlar en yukarda olacak. ( Bunun yerine giriş ekranına koyuldu. Stagelerde sadece sıralama olacak )
 
 [x] Remaining ball sayısını yaz.
 
+- [ ] Verileri Tut:
 
-[ ] Verileri Tut:
+- [ ] Düşen top seti ve yaptığı seçimi aldığı puanı
+- [ ] Buton seçimini kaç saniyede yaptığını
 
-[ ] Düşen top seti ve yaptığı seçimi aldığı puanı
-
-[ ] Buton seçimini kaç saniyede yaptığını
-
-[ ] Karakter aynı anda 2 top almayacak.
+- [x] Karakter aynı anda 2 top almayacak.(physicDelegate nil yapıp tekrar bağlıyorum. alamadığı topla çarpışıp sekiyor.)
 
 Yetişirse:
 
-[ ] Girişte kullanıcı adı tut.
+- [ ] Girişte kullanıcı adı tut.
 
-[ ] Leaderboards gibi bir şey yap.
+- [ ] Leaderboards gibi bir şey yap.
+
+- [ ] Müzik koy.
+
+- [ ] Puan alma kısmının tasarımını düzelt. Animasyon vs 1 2 hareket getir.
 

@@ -21,6 +21,7 @@
 		B48AE6C12312D85D00DABB6B /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = B48AE6C02312D85D00DABB6B /* FireParticles.sks */; };
 		E8CDC918237A2A2100432946 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CDC916237A2A2100432946 /* StartScene.swift */; };
 		E8CDC919237A2A2100432946 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E8CDC917237A2A2100432946 /* StartScene.sks */; };
+		E8F1FCD82381450500F59435 /* can.ttc in Resources */ = {isa = PBXBuildFile; fileRef = E8F1FCD72381450500F59435 /* can.ttc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,8 @@
 		B48AE6C02312D85D00DABB6B /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
 		E8CDC916237A2A2100432946 /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartScene.swift; path = HRGame/Start/StartScene.swift; sourceTree = SOURCE_ROOT; };
 		E8CDC917237A2A2100432946 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = StartScene.sks; path = HRGame/Start/StartScene.sks; sourceTree = SOURCE_ROOT; };
+		E8F1FCD6238143DC00F59435 /* Phosphate.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Phosphate.ttc; sourceTree = "<group>"; };
+		E8F1FCD72381450500F59435 /* can.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = can.ttc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 				B412205C2311562C0099F378 /* GameScene.sks */,
 				B41220602311562C0099F378 /* GameScene.swift */,
 				B412205E2311562C0099F378 /* Actions.sks */,
+				E8F1FCD72381450500F59435 /* can.ttc */,
+				E8F1FCD6238143DC00F59435 /* Phosphate.ttc */,
 				E8CDC915237A29EA00432946 /* StartScens */,
 				B4528ED8233F9BBB003FDC3A /* Menu */,
 				B4528ED9233F9BD5003FDC3A /* Emitter */,
@@ -175,6 +180,7 @@
 			files = (
 				E8CDC919237A2A2100432946 /* StartScene.sks in Resources */,
 				B41220662311562C0099F378 /* Main.storyboard in Resources */,
+				E8F1FCD82381450500F59435 /* can.ttc in Resources */,
 				B412205D2311562C0099F378 /* GameScene.sks in Resources */,
 				B4528ED7233F83C6003FDC3A /* Starfield.sks in Resources */,
 				B41220682311562D0099F378 /* Assets.xcassets in Resources */,
