@@ -256,10 +256,10 @@ ________________________________________________________________________________
 
 - [x] Stage giriş ekranlarındaki metinler ve soru metinleri düzeltilecek.
 
-- [ ] Soru yeni toplar düşmeye başladığında gösterilecek. Seçimden sonra kapalı kalacak.
+- [x] Soru yeni toplar düşmeye başladığında gösterilecek. Seçimden sonra kapalı kalacak.
 
 
-- [ ] Stage değişiklikleri:
+- [x] Stage değişiklikleri:
 
 - [x] Stage 2: 
 
@@ -274,18 +274,18 @@ ________________________________________________________________________________
 - [x] Renk Testi: yanlış cevaba ve boşa ceza yok.
 - [x] Doğru cevap süresine göre fazla puan ver.
 
-- [ ] Stage 4: ( Yeni Eklenecek )
+- [x] Stage 4: ( Yeni Eklenecek )
 
-[x] hem renk hem metin eşleme soruları.
+- [x] hem renk hem metin eşleme soruları.
 
-- [ ] Renk Testi: yanlış cevaba ve boşa cezalar başlayacak.
+- [x] Renk Testi: yanlış cevaba ve boşa cezalar başlayacak.
 - [x] Doğru cevap süresine göre fazla puan ver.
 
-- [ ] Stage Tasarımları:
+- [x] Stage Tasarımları:
 
-[x] Risk değerleri ve puanlar en yukarda olacak. ( Bunun yerine giriş ekranına koyuldu. Stagelerde sadece sıralama olacak )
+- [x] Risk değerleri ve puanlar en yukarda olacak. ( Bunun yerine giriş ekranına koyuldu. Stagelerde sadece sıralama olacak )
 
-[x] Remaining ball sayısını yaz.
+- [x] Remaining ball sayısını yaz.
 
 - [ ] Verileri Tut:
 
