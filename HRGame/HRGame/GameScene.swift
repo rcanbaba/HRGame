@@ -37,6 +37,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var remainingLineCount = Int(20)
     var collidedBallName: String = ""
     var stage3QuestionType = Int(0)
+    var isGotPoint = false
+    
+    struct result{
+        var stageNumber: Int
+        var currentLine: Int
+        var fallingBallCount: Int
+        var ballcolors: [String]
+        var capturedBallColor: String
+        var pointFormCollision: Int
+        var colorQuestionText: String
+        var buttonTexts: [String]
+        var buttonCollors: [String]
+        var chosenButtonText: String
+        var isChooseRigth: Bool
+        var pointFromColorTest: Int
+        var colorDecisionTime: Int
+        
+    }
+    
+    
     var score = 0{
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -68,7 +88,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let anlık1 = SKAction.sequence(actions1)
                 character.run(anlık1)
             }
-
                     
             getPointLabel.position = character.position
             getPointLabel.zPosition = 35
@@ -235,28 +254,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             pad = someNode
             print("that worked")
         }
-        
-        
+                
         if(stageKey == 0 ){ // tutorial elle set ettiğimiz kısım
             setColorViewTab(isHidden: true)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
             setColorQuestion(isHidden: true)
+            
             nextRow(row: stageCount+1)
         }else if(stageKey == 1){ // düz oyun top yakala
             setColorViewTab(isHidden: false)
          //   setRiskyBallsView(hide: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
-            setColorQuestion(isHidden: false)
+            setColorQuestion(isHidden: true)
             stage3clockLabel.text = ""
+            
             stageTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
         }else if(stageKey == 2){ // renk soruları gelecek
             setColorViewTab(isHidden: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
-            setColorQuestion(isHidden: false)
-            
+            setColorQuestion(isHidden: true)
             colorTestCountDownLabel = SKLabelNode(fontNamed: "Chalkduster")
           //  colorTestCountDownLabel.text = "GO"
             colorTestCountDownLabel.fontSize = 150
@@ -268,11 +287,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             startCountDownTimer = Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(startCountDown), userInfo: nil, repeats: true)
             stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: nil, repeats: true)
             
-        }else if(stageKey == 3){ // süre geri sayımı
+        }else if(stageKey == 3 || stageKey == 4){ // süre geri sayımı
             setColorViewTab(isHidden: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
-            setColorQuestion(isHidden: false)
+            setColorQuestion(isHidden: true)
             
               colorTestCountDownLabel = SKLabelNode(fontNamed: "Chalkduster")
             //  colorTestCountDownLabel.text = "GO"
@@ -285,7 +304,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // stage3Timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(stage3countDown), userInfo: nil, repeats: true)
             startCountDownTimer = Timer.scheduledTimer(timeInterval: 1.2, target: self, selector: #selector(startCountDown), userInfo: nil, repeats: true)
             stageTimer = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(addNewLine), userInfo: 78, repeats: true)
-
         }
     }
     
@@ -304,7 +322,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if(stageKey == 0 ){ // tutorial elle set ettiğimiz kısım
                 
             }else if(stageKey == 1){ // düz oyun
-
+// MARK: Touch stage 2 - 3.5
             }else if(stageKey == 2 || (stageKey == 3 && stage3QuestionType == 0)){ // butonlar lazım
                 
                 collBallName =  getCollidedBallName(ball: collidedBallName)
@@ -347,7 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
-                                
+ // MARK: Touch stage 3.5
             }else if((stageKey == 3 && stage3QuestionType == 1)){
                 
                 collBallColor =  getCollidedBallColor(ball: collidedBallName)
@@ -355,47 +373,192 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
                     colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel1.fontColor == collBallColor){
-                            score = score + 11
-                            getPoint = 11
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
                     colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel2.fontColor == collBallColor){
-                            score = score + 11
-                            getPoint = 11
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
                     colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel3.fontColor == collBallColor){
-                            score = score + 11
-                            getPoint = 11
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
                     colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel4.fontColor == collBallColor){
-                            score = score + 11
-                            getPoint = 11
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
                     colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
                         if(colorButtonLabel5.fontColor == collBallColor){
-                            score = score + 11
-                            getPoint = 11
+                            getPoint = colorTestCountDown * 5
+                            score = score + getPoint
                         }
                     colorTestCountDownLabel.isHidden = true
                 }
                 
                 buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
                 
+// MARK: Touch stage 4.5
+            }else if(stageKey == 4 && stage3QuestionType == 0){ // butonlar lazım
+                           
+                           collBallName =  getCollidedBallName(ball: collidedBallName)
+                           
+                           if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
+                            isGotPoint = true
+                               colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                   if(colorButtonLabel1.text == collBallName){
+                                       getPoint = colorTestCountDown * 5
+                                       score = score + getPoint
+                                   }else{
+                                       getPoint = -5
+                                       score = score + getPoint
+                                   }
+                               colorTestCountDownLabel.isHidden = true
+                           }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
+                            isGotPoint = true
+                               colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                   if(colorButtonLabel2.text == collBallName){
+                                       getPoint = colorTestCountDown * 5
+                                       score = score + getPoint
+                                   }else{
+                                       getPoint = -5
+                                       score = score + getPoint
+                                   }
+                               colorTestCountDownLabel.isHidden = true
+                           }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
+                            isGotPoint = true
+                               colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                   if(colorButtonLabel3.text == collBallName){
+                                       getPoint = colorTestCountDown * 5
+                                       score = score + getPoint
+                                   }else{
+                                       getPoint = -5
+                                       score = score + getPoint
+                                   }
+                               colorTestCountDownLabel.isHidden = true
+                           }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
+                            isGotPoint = true
+                               colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                   if(colorButtonLabel4.text == collBallName){
+                                       getPoint = colorTestCountDown * 5
+                                       score = score + getPoint
+                                   }else{
+                                       getPoint = -5
+                                       score = score + getPoint
+                                   }
+                               colorTestCountDownLabel.isHidden = true
+                           }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
+                            isGotPoint = true
+                               colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                   if(colorButtonLabel5.text == collBallName){
+                                       getPoint = colorTestCountDown * 5
+                                       score = score + getPoint
+                                   }else{
+                                    getPoint = -5
+                                    score = score + getPoint
+                                }
+                               colorTestCountDownLabel.isHidden = true
+                           }
+//                if(stage4point > 0){
+//
+//                }else if(stage4point == 0){
+//                    stage4point = -5
+//                    getPoint = -5
+//                    score = score + getPoint
+//                }else if(stage4point == -5){
+//
+//                }
                 
+                           buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
+               
+// MARK: Touch stage 4.5
+            }else if((stageKey == 4 && stage3QuestionType == 1)){
+                                
+                                collBallColor =  getCollidedBallColor(ball: collidedBallName)
+                                
+                                if (nodesArray.first?.name == "colorBtn1" || nodesArray.first?.name == "clrBtnLbl1"){
+                                    isGotPoint = true
+                                    colorButton1.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                        if(colorButtonLabel1.fontColor == collBallColor){
+                                            getPoint = colorTestCountDown * 5
+                                            score = score + getPoint
+                                        }else{
+                                            getPoint = -5
+                                            score = score + getPoint
+                                        }
+                                    colorTestCountDownLabel.isHidden = true
+                                }else if(nodesArray.first?.name == "colorBtn2" || nodesArray.first?.name == "clrBtnLbl2"){
+                                    isGotPoint = true
+                                    colorButton2.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                        if(colorButtonLabel2.fontColor == collBallColor){
+                                            getPoint = colorTestCountDown * 5
+                                            score = score + getPoint
+                                        }else{
+                                            getPoint = -5
+                                            score = score + getPoint
+                                        }
+                                    colorTestCountDownLabel.isHidden = true
+                                }else if(nodesArray.first?.name == "colorBtn3" || nodesArray.first?.name == "clrBtnLbl3"){
+                                    isGotPoint = true
+                                    colorButton3.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                        if(colorButtonLabel3.fontColor == collBallColor){
+                                            getPoint = colorTestCountDown * 5
+                                            score = score + getPoint
+                                        }else{
+                                            getPoint = -5
+                                            score = score + getPoint
+                                        }
+                                    colorTestCountDownLabel.isHidden = true
+                                }else if(nodesArray.first?.name == "colorBtn4" || nodesArray.first?.name == "clrBtnLbl4"){
+                                    isGotPoint = true
+                                    colorButton4.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                        if(colorButtonLabel4.fontColor == collBallColor){
+                                            getPoint = colorTestCountDown * 5
+                                            score = score + getPoint
+                                        }else{
+                                            getPoint = -5
+                                            score = score + getPoint
+                                        }
+                                    colorTestCountDownLabel.isHidden = true
+                                }else if(nodesArray.first?.name == "colorBtn5" || nodesArray.first?.name == "clrBtnLbl5"){
+                                    isGotPoint = true
+                                    colorButton5.texture = SKTexture(imageNamed: "colorBtnPushed")
+                                        if(colorButtonLabel5.fontColor == collBallColor){
+                                            getPoint = colorTestCountDown * 5
+                                            score = score + getPoint
+                                        }else{
+                                            getPoint = -5
+                                            score = score + getPoint
+                                        }
+                                    colorTestCountDownLabel.isHidden = true
+                                }
                 
-            }
+//                               if(stage4point > 0){ // doğru cevap vermiş bi kere bişe yapma
+//
+//                               }else if(stage4point == 0){ // yanlış cevap verirse -5 ver
+//                                   stage4point = -5
+//                                   getPoint = -5
+//                                   score = score + getPoint
+//                               }else if(stage4point == -5){ // 1 kere yanlış verdiyse elleşme
+//
+//                               }
+                
+                                buttonTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(buttonReloader), userInfo: "can", repeats: true)
+                            }
             
             
+// MARK: Touch buttons will be removed
             if(nodesArray.first?.name == "pauseStageButton" ){ /// düzeltilecek
                 self.scene?.view?.isPaused = true
                 //stageTimer.invalidate()
@@ -436,6 +599,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
+// MARK: Karakteri kaydır
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         if let location = touch?.location(in: self){
@@ -446,6 +611,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 // MARK: ADD NEW LINE STAGE 2 & 3 BAŞLANGICI
     @objc func addNewLine(){ //count koy ona ulaşınca girmeyi bıraksın
         //character.zPosition = 50
+        isGotPoint = false
         physicsWorld.contactDelegate = self
         if(stageKey == 2 ){
             setColorViewTab(isHidden: false)
@@ -460,19 +626,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             setColorQuestion(isHidden: false)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
-            
+        }else if(stageKey == 4){
+            setColorViewTab(isHidden: false)
+            setColorQuestionText()
+            setColorQuestion(isHidden: false)
+            setColorLabels(isHidden: true)
+            setColorButtons(isHidden: true)
         }
-        
     
-        if (lineCount > 4 && stageKey == 2) { // 20 olur
+        if (stageKey == 1 && lineCount > 19) { // 20 olur
             stageTimer!.invalidate()
             endGameScreen()
-            
-        }else if(stageKey == 3 && lineCount > 9){
+        }else if(stageKey == 2 && lineCount > 19){
            // stage3Timer.invalidate()
             stageTimer.invalidate()
             endGameScreen()
-        }else if(stageKey == 1 && lineCount > 19){
+        }else if(stageKey == 3 && lineCount > 19){
+           // stage3Timer.invalidate()
+            stageTimer.invalidate()
+            endGameScreen()
+        }else if(stageKey == 4 && lineCount > 19){
            // stage3Timer.invalidate()
             stageTimer.invalidate()
             endGameScreen()
@@ -1001,7 +1174,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         ball.removeFromParent()
-        if(stageKey == 2 || stageKey == 3){
+        if(stageKey == 2 || stageKey == 3 || stageKey == 4){
             setColorQuestion(isHidden: true)
             setColorLabels(isHidden: false)
             setColorButtons(isHidden: false)
@@ -1170,12 +1343,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             colorButtonLabel3.isHidden = true
             colorButtonLabel4.isHidden = true
             colorButtonLabel5.isHidden = true
+//            colorButtonLabel1.isUserInteractionEnabled = false
+//            colorButtonLabel2.isUserInteractionEnabled = false
+//            colorButtonLabel3.isUserInteractionEnabled = false
+//            colorButtonLabel4.isUserInteractionEnabled = false
+//            colorButtonLabel5.isUserInteractionEnabled = false
+//          colorButtonLabel1.zPosition = 9
+//          colorButtonLabel2.zPosition = 9
+//          colorButtonLabel3.zPosition = 9
+//          colorButtonLabel4.zPosition = 9
+//          colorButtonLabel5.zPosition = 9
         }else{
             colorButtonLabel1.isHidden = false
             colorButtonLabel2.isHidden = false
             colorButtonLabel3.isHidden = false
             colorButtonLabel4.isHidden = false
             colorButtonLabel5.isHidden = false
+//            colorButtonLabel1.isUserInteractionEnabled = true
+//            colorButtonLabel2.isUserInteractionEnabled = true
+//            colorButtonLabel3.isUserInteractionEnabled = true
+//            colorButtonLabel4.isUserInteractionEnabled = true
+//            colorButtonLabel5.isUserInteractionEnabled = true
+//          colorButtonLabel1.zPosition = 15
+//          colorButtonLabel2.zPosition = 15
+//          colorButtonLabel3.zPosition = 15
+//          colorButtonLabel4.zPosition = 15
+//          colorButtonLabel5.zPosition = 15
+
         }
 
     }
@@ -1186,12 +1380,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
              colorButton3.isHidden = true
              colorButton4.isHidden = true
              colorButton5.isHidden = true
+//             colorButton1.isUserInteractionEnabled = false
+//             colorButton2.isUserInteractionEnabled = false
+//             colorButton3.isUserInteractionEnabled = false
+//             colorButton4.isUserInteractionEnabled = false
+//             colorButton5.isUserInteractionEnabled = false
+//           colorButton1.zPosition = 9
+//           colorButton2.zPosition = 9
+//           colorButton3.zPosition = 9
+//           colorButton4.zPosition = 9
+//           colorButton5.zPosition = 9
          }else{
              colorButton1.isHidden = false
              colorButton2.isHidden = false
              colorButton3.isHidden = false
              colorButton4.isHidden = false
              colorButton5.isHidden = false
+//            colorButton1.isUserInteractionEnabled = true
+//            colorButton2.isUserInteractionEnabled = true
+//            colorButton3.isUserInteractionEnabled = true
+//            colorButton4.isUserInteractionEnabled = true
+//            colorButton5.isUserInteractionEnabled = true
+//           colorButton1.zPosition = 11
+//           colorButton2.zPosition = 11
+//           colorButton3.zPosition = 11
+//           colorButton4.zPosition = 11
+//           colorButton5.zPosition = 11
          }
     }
     func setColorQuestion(isHidden: Bool){
@@ -1239,7 +1453,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func deActivateColors(){ //count koy ona ulaşınca girmeyi bıraksın
         colorTimer.invalidate()
-        setColorQuestion(isHidden: false)
+        setColorQuestion(isHidden: true)
         setColorLabels(isHidden: true)
         setColorButtons(isHidden: true)
     }
@@ -1249,9 +1463,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(colorTestCountDown == 0){
             colorTestCountDownLabel.isHidden = true
             buttonCountDown.invalidate()
-            setColorQuestion(isHidden: false)
+            setColorQuestion(isHidden: true)
             setColorLabels(isHidden: true)
             setColorButtons(isHidden: true)
+            
+                       
+            if( stageKey == 4 && isGotPoint == false){
+                    getPoint = -5
+                    score = score + getPoint
+            }
         }
     }
     
