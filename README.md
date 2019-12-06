@@ -304,3 +304,86 @@ Yetişirse:
 
 - [ ] Puan alma kısmının tasarımını düzelt. Animasyon vs 1 2 hareket getir.
 
+________________________________________________________________________________________________
+
+## Bitirme Psikolog Görüşmesi 
+## 22.11.2019
+
+Hızı yavaşlatılmalı bu durum şansa yaptığı tercihler asıl sonucumuzu değiştirebilir.
+
+Eşik değer koymamız lazım bunu pilot çalışma ile gözlemleriz
+20 elde 15 hata yapıyorsa
+20 de 15 az riskli 
+
+Risk alma ölçeği bulacağız adama bunun başında vereceğiz.
+Bu ölçek skoru ile uygulama uyuşuyor diyeceğiz
+
+Kişinin gerçekten riske yatkın olup olmadığını önceden ölçerek kontrol edebiliriz.
+Çok basit bilinen dikkat testlerini önce uygula sonrasında oyuna sokup denk mi değil mi diye bak.
+
+Zihinsel esneklik, oyunun kuralı değişiyor mu onu deneyebiliriz
+
+Değişime ayak uydurmayı da ölçüyoruz. Stroop ile aynı zamanda
+Odaklanma gücü ve işlem hızı
+
+Acele ettiği için mi yoksa başka zamanda mı 
+
+Negatif ödül 
+Ceza vermeye başlayınca daha kontrollü davranıyor mu 
+Ödül duyarlılığı
+Kontrol algısı
+Daha kontrollü davranmaya yatkın kişiler mi?
+
+Spss kullanılıyormuş bu tarz sonuçları değerlendirmede 
+
+Örneklemimi neye göre seçeceğim..
+Hedef bi kitle seç 
+dışlama kriteri olsun yaş dikkat eksikliği vs.
+
+Testi uyguladığımız ortam şartlar vs standart olsun.
+
+________________________________________________________________________________________________
+
+## Bitirme Görüşmesi 
+## 03.12.2019
+
+
+Stage 1
+Each ball gives you a different score (green scores below the balls)
+There is a risk of getting penalty( minus half of the ball scores). The risk probability is written in the balls
+
+Gerisi … 
+
+* Score yazma kısmı 
+
+Stage bittiğinde stage completed. Puanı yaz 
+
+Stage 2
+
+With the color name that will appears at the bottom
+ You should choose the ball colors from the color names listed below / at the bottom
+
+* End game screen düzelt..
+
+Stage 3
+
+Plural yap questions.
+According the question 
+
+With the name of the color or color of the texts 
+
+What color is the ball?
+
+* Match the ball color with the name of the color. 
+* T text sembolü    
+
+* Match the ball color with the color of the text. 
+* C color rengarek
+
+Stage 4
+
+If you choose a wrong color. Başına
+
+* Stage 4 soru gelmedi 
+
+Yazmaları çöz

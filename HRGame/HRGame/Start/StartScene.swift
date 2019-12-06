@@ -110,23 +110,23 @@ class StartScene: SKScene, SKPhysicsContactDelegate {
             stageLabelNode.text = "STAGE 1"
             infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "At this stage you should catch falling balls. Each ball has different risks. The risk rate is above the balls and the score is below the balls. The penalty is half of the score. Becareful! If you are ready, swipe the character to the start button."
+            infoLabelNode.text = "At this stage you should catch falling balls. Each ball gives youa different score (green scores below the balls). There is a risk of penalty (minus half of the ball scores). The risk probability written in the balls. Becareful! If you are ready, swipe the character to the start button."
             
         }else if(userDefaults.integer(forKey: "stageKey") == 2){
             stageLabelNode.text = "STAGE 2"
             infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "At this stage, there is an additional color matching question. When you catch a ball, colored buttons will appear at the bottom. You should match the ball color with the color name. Keep in mind the button countdown is 3 seconds."
+            infoLabelNode.text = "At this stage, there is an additional color matching question. When you catch a ball, colored buttons will appear at the bottom. You should match the ball color with the color name that will appears at the bottom. Keep in mind the button countdown is 3 seconds."
         }else if(userDefaults.integer(forKey: "stageKey") == 3){
             stageLabelNode.text = "STAGE 3"
             infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "At this stage,  there are two different color matching question.  According to questions you should match the ball color with the color name or text color. Keep in mind the button countdown is 3 seconds."
+            infoLabelNode.text = "At this stage,  there are two different color matching questions.  According the question you should match the ball color with the name of the color or color of the texts. Keep in mind the button countdown is still 3 seconds."
         }else if(userDefaults.integer(forKey: "stageKey") == 4){
             stageLabelNode.text = "STAGE 4"
             infoLabelNode.fontSize = 34
             infoLabelNode.verticalAlignmentMode = .center
-            infoLabelNode.text = "At this stage,  if you make a wrong color match you will get 5 point penalty.  If you don’t choose any button you will get same penalty 5 point. Keep in mind the button countdown is 3 seconds."
+            infoLabelNode.text = "At this stage,  if you choose a wrong color match you will get 5 point penalty.  If you don’t choose any button you will get same penalty (5 point). Keep in mind the button countdown is still 3 seconds."
         }else{
 
         }
