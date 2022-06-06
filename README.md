@@ -7,9 +7,16 @@ ________________________________________________________________________________
 ## Game Flow
 
 
-https://github.com/rcanbaba/HRGame/blob/master/Poster%20Presentation/flowDiagram.png
+link: https://github.com/rcanbaba/HRGame/blob/master/Poster%20Presentation/flowDiagram.png
 
 <img src="https://raw.githubusercontent.com/rcanbaba/HRGame/master/Poster%20Presentation/flowDiagram.png?sanitize=true&raw=true" />
+
+
+## Poster Presentation
+
+link: https://github.com/rcanbaba/HRGame/blob/master/Poster%20Presentation/Poster%20A1_jpg.jpg
+
+<img src="https://raw.githubusercontent.com/rcanbaba/HRGame/master/Poster%20Presentation/Poster%20A1_jpg.jpg?sanitize=true&raw=true" />
 
 
 ______________________________________________________________________________________________________________________________
