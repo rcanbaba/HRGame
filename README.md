@@ -4,13 +4,27 @@ Graduation project. Adaptive HR Game
 
 ______________________________________________________________________________________________________________________________
 
+## Game Flow
+
+
+https://github.com/rcanbaba/HRGame/blob/master/Poster%20Presentation/flowDiagram.png
+
+<img src="https://raw.githubusercontent.com/rcanbaba/HRGame/master/Poster%20Presentation/flowDiagram.png?sanitize=true&raw=true" />
+
+
+______________________________________________________________________________________________________________________________
+
+
+## Notes in Turkish below: 
+
+
 ## YAPILACAKLAR
 
 - [x] Karakter sağa sola çektiğin zaman gidecek. 
 - [x] Karakter olduğu yerde hafif hareket edecek. (spritekit tutorial da var)
-- [ ] Karakter ekranın dışına çıkmasın.
-- [-] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun. --
-- [-] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin. --
+- [x] Karakter ekranın dışına çıkmasın.
+- [x] Karaktere düzgün asset bul. Assette sağa ve sola koşu olsun. --
+- [x] Sağa yada sola sürüklendiğinde karakter yön değiştirebilsin. --
 
 - [x] Arkaplan ayarla.
 - [x] Score vs alanı yukarıya ayarla.
@@ -29,7 +43,7 @@ ________________________________________________________________________________
 - [x] Renk testi alanı ayarla alta.
 - [x] Stageler arası sceneleri ayarla.
 
-- [ ] Tutorial koy başa.
+- [x] Tutorial koy başa.
 - [x] Stage 1: renkli toplar
 - [x] Stage 2: + renk soruları
 - [x] Stage 3: + hız
@@ -103,7 +117,7 @@ ________________________________________________________________________________
 
 - [x] 1.  Sabit dururken kendi kendine hareket edecek.
 - [x] 2.  Karakter sağa yada sola sürüklenebilecek. Dokunduğumuz yere gidecek. (İlk oyundan bakarak çöz)
-- [ ] 3.  Karakter sürüklendiği yöne göre yön değiştirmeli “asset”
+- [x] 3.  Karakter sürüklendiği yöne göre yön değiştirmeli “asset”
 
 #### Etaplar
 
@@ -139,9 +153,9 @@ Yeşil klasik +2 puan Kırmızı -+15 Risk alıp başarısız olduklarında ayn�
 
 #### Müzik
 
-- [ ] 1.  Çarpışmalara müzik ekle
-- [ ] 2.  Arkaplan müziği ekle
-- [ ] 3.  Renk sorularında müzik değiş dursun vs.
+- [x] 1.  Çarpışmalara müzik ekle
+- [x] 2.  Arkaplan müziği ekle
+- [x] 3.  Renk sorularında müzik değiş dursun vs.
 
 ## ÖNEMLİ LİNKLER
 
@@ -287,10 +301,10 @@ ________________________________________________________________________________
 
 - [x] Remaining ball sayısını yaz.
 
-- [ ] Verileri Tut:
+- [x] Verileri Tut:
 
-- [ ] Düşen top seti ve yaptığı seçimi aldığı puanı
-- [ ] Buton seçimini kaç saniyede yaptığını
+- [x] Düşen top seti ve yaptığı seçimi aldığı puanı
+- [x] Buton seçimini kaç saniyede yaptığını
 
 - [x] Karakter aynı anda 2 top almayacak.(physicDelegate nil yapıp tekrar bağlıyorum. alamadığı topla çarpışıp sekiyor.)
 
